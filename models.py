@@ -1,6 +1,5 @@
 import sqlite3
 
-
 class ValidationError(Exception):
     """Ошибка валидации"""
 
@@ -12,25 +11,30 @@ class SQLModel:
     def _connect(cls):
         return sqlite3.connect(cls._DATABASE)
 
-    # @classmethod
-    # def query(cls, query):
-    #     conn = cls._connect()
-    #     cur = conn.cursor()
+    @classmethod
+    def query(cls, query):
+        conn = cls._connect()
+        cur = conn.cursor()
 
-    #     cur.execute(query)
-    #     conn.commit()
-    #     conn.close()
+        cur.execute(query)
+        conn.commit()
+        conn.close()
+
+    @classmethod
+    def query_param(cls, query, param):
+        conn = cls._connect()
+        cur = conn.cursor()
+
+        cur.execute(query, param)
+        conn.commit()
+        conn.close()
 
     def _create_DB(self):
         """
         Здесь мы проверяем существование таблицы
         Если нет - создаем и накатываем поля
         """
-        conn = self._connect()
-        cur = conn.cursor()
-
-        cur.execute(
-            """
+        self.query("""
                 CREATE TABLE IF NOT EXISTS user 
                 (
                     `userID` INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -44,26 +48,39 @@ class SQLModel:
                     `activity` TEXT
                 )
             """)
-        conn.commit()
-        conn.close()
 
     def _create_mapping(self):
-        conn = self._connect()
-        cur = conn.cursor()
+        self._create_DB()
+
         arr = (list(self._FIELDS_MAPPING.values())[1:])
-        cur.execute(
+        self.query_param(
             """
                 INSERT INTO user (name, sname, pname, born, phone, rating, mail, activity) VALUES(?,?,?,?,?,?,?,?)
             """, arr)
-        conn.commit()
-        conn.close()
 
     def _update_mapping(self):
         """
         Здесь мы проверяем что у нас есть в бд из полей
         Если чего то нет - досоздаем
         """
-        pass
+        self._create_DB()
+        _list = list(self._FIELDS_MAPPING.values())
+        arr = (_list[1:])
+        arr.append(_list[0])
+        self.query(
+            """
+                UPDATE user
+                SET
+                    name =?,
+                    sname =?,
+                    pname=?,
+                    born=?,
+                    phone=?,
+                    rating=?,
+                    mail=?,
+                    activity=?
+                WHERE userID = ?
+            """, arr)
 
     @classmethod
     def _get_by_pk(cls, pk):
@@ -80,36 +97,33 @@ class SQLModel:
 
         result = {}
         record = cur.fetchone()
-        print(cur.description)
         for idx, col in enumerate(cur.description):
             result[col] = record[idx]
         conn.close()
         return result
 
     def get_by_pk(self, pk):
-        self._create_DB()
-        self._create_mapping()
         record = self._get_by_pk(pk)
-        # record = cls._get_by_pk_mock(pk)
-        # obj = cls()
-        # obj.fill_data(record)
-        # return obj
-        return record
+        self._create_DB()
+
+        self.fill_data(record)
+        return self
+        # return record
 
 class BasicModel(SQLModel):
     # Поля модели
     _FIELDS_MAPPING = {}
     _INNER_DATA = {}
-    _DATABASE = 'mydb.db'
+    _DATABASE = 'studer.db'
 
     def __getattr__(self, attr):
         if attr in self._FIELDS_MAPPING.keys():
-            return None
+            return self._FIELDS_MAPPING[attr]
         raise AttributeError()
 
-    # def __setattr__(self, attr, value):
-    #   if attr in _FIELDS_MAPPING.keys():
-    #       self.__dict__[attr] = value
+    def __setattr__(self, attr, value):
+      if attr in self._FIELDS_MAPPING.keys():
+          self._FIELDS_MAPPING[attr] = value
 
     def fill_data(self, data):
         """
