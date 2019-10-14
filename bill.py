@@ -45,8 +45,8 @@ class Bill(models.BasicModel):
                     `client` INTEGER,
                     `category` INTEGER,
                     `status` TEXT,
-					`views` INTEGER,
-					`executors`, TEXT
+		    `views` INTEGER,
+		    `executors`, TEXT
 					
                 )
             """)
@@ -80,8 +80,8 @@ class Bill(models.BasicModel):
                     client=?,
                     category=?,
                     status=?,
-					views=?,
-					executors=?
+		    views=?,
+		    executors=?
                 WHERE billID = ?
             """, arr)
 b=Bill()
