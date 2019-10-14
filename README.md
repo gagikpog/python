@@ -43,4 +43,4 @@ Studer- это Веб-Сервис, задача которого заключа
 - **activity** – статус активности пользователя на сайте (онлайн/оффлайн).
 (можно сделать bool
 
-![alt text](https://ibb.co/nmMbsb1)
+![alt text](https://i.ibb.co/wghRNRQ/image.png)
