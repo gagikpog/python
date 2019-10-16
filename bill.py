@@ -11,10 +11,12 @@ class Bill(models.BasicModel):
         'client': int,
         'category': int,
         'status': str,
-        'views': int,
-        'executors': str   
+        'views': int
     }
-    _TABLE= 'bills'
+
+    _PRIMARY_KEY = 'billID'
+    _TABLE = 'bills'
+
     def __init__(self):
         self._FIELDS_MAPPING['date'] = ''
         self._FIELDS_MAPPING['deadline'] = ''
@@ -25,16 +27,14 @@ class Bill(models.BasicModel):
         self._FIELDS_MAPPING['category'] = ''
         self._FIELDS_MAPPING['status'] = ''
         self._FIELDS_MAPPING['views'] = 0
-        self._FIELDS_MAPPING['executors'] = ''
 
-        
     def _create_DB(self):
         """
         Здесь мы проверяем существование таблицы
         Если нет - создаем и накатываем поля
         """
         self.query("""
-                CREATE TABLE IF NOT EXISTS bills 
+                CREATE TABLE IF NOT EXISTS bills
                 (
                     `billID` INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                     `date` TEXT,
@@ -45,18 +45,26 @@ class Bill(models.BasicModel):
                     `client` INTEGER,
                     `category` INTEGER,
                     `status` TEXT,
-		    `views` INTEGER,
-		    `executors`, TEXT
-					
+                    `views` INTEGER
                 )
             """)
     def _create_mapping(self):
         self._create_DB()
 
-        array = (list(self._FIELDS_MAPPING.values())[1:])
-        self.query_param(
+        arr = (list(self._FIELDS_MAPPING.values())[1:])
+        self.query(
             """
-                INSERT INTO bills (date, deadline, sum, description, student, client, category, status, views, executors) VALUES(?,?,?,?,?,?,?,?,?,?)
+                INSERT INTO bills (
+                    date,
+                    deadline,
+                    sum,
+                    description,
+                    student,
+                    client,
+                    category,
+                    status,
+                    views
+                ) VALUES(?,?,?,?,?,?,?,?,?)
             """, arr)
 
     def _update_mapping(self):
@@ -64,7 +72,6 @@ class Bill(models.BasicModel):
         Здесь мы проверяем что у нас есть в бд из полей
         Если чего то нет - досоздаем
         """
-        self._create_DB()
         _list = list(self._FIELDS_MAPPING.values())
         arr = (_list[1:])
         arr.append(_list[0])
@@ -80,9 +87,7 @@ class Bill(models.BasicModel):
                     client=?,
                     category=?,
                     status=?,
-		    views=?,
-		    executors=?
+                    views=?
                 WHERE billID = ?
             """, arr)
-b=Bill()
-print(b.to_dict())
+

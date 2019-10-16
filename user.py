@@ -10,9 +10,13 @@ class User(models.BasicModel):
         'phone': str,
         'rating': int,
         'mail': str,
-        'activity': str
+        'activity': str,
+        'studID': int
     }
+
     _TABLE = 'user'
+    _PRIMARY_KEY = 'userID'
+
     def __init__(self):
         self._FIELDS_MAPPING['name'] = ''
         self._FIELDS_MAPPING['sname'] = ''
@@ -22,6 +26,7 @@ class User(models.BasicModel):
         self._FIELDS_MAPPING['rating'] = 0
         self._FIELDS_MAPPING['mail'] = ''
         self._FIELDS_MAPPING['activity'] = ''
+        self._FIELDS_MAPPING['studID'] = 0
         pass
 
     def _create_DB(self):
@@ -30,7 +35,7 @@ class User(models.BasicModel):
         Если нет - создаем и накатываем поля
         """
         self.query("""
-                CREATE TABLE IF NOT EXISTS user 
+                CREATE TABLE IF NOT EXISTS user
                 (
                     `userID` INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                     `name` TEXT,
@@ -40,7 +45,8 @@ class User(models.BasicModel):
                     `phone` TEXT,
                     `rating` INTEGER,
                     `mail` TEXT,
-                    `activity` TEXT
+                    `activity` TEXT,
+                    `studID` INTEGER
                 )
             """)
 
@@ -48,9 +54,19 @@ class User(models.BasicModel):
         self._create_DB()
 
         arr = (list(self._FIELDS_MAPPING.values())[1:])
-        self.query_param(
+        self.query(
             """
-                INSERT INTO user (name, sname, pname, born, phone, rating, mail, activity) VALUES(?,?,?,?,?,?,?,?)
+                INSERT INTO user (
+                    name,
+                    sname,
+                    pname,
+                    born,
+                    phone,
+                    rating,
+                    mail,
+                    activity,
+                    studID
+                ) VALUES(?,?,?,?,?,?,?,?,?)
             """, arr)
 
     def _update_mapping(self):
@@ -58,7 +74,6 @@ class User(models.BasicModel):
         Здесь мы проверяем что у нас есть в бд из полей
         Если чего то нет - досоздаем
         """
-        self._create_DB()
         _list = list(self._FIELDS_MAPPING.values())
         arr = (_list[1:])
         arr.append(_list[0])
@@ -73,10 +88,7 @@ class User(models.BasicModel):
                     phone=?,
                     rating=?,
                     mail=?,
-                    activity=?
+                    activity=?,
+                    studID=?
                 WHERE userID = ?
             """, arr)
-
-a = User()
-
-print(a.to_dict())

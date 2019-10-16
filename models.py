@@ -6,81 +6,22 @@ class ValidationError(Exception):
 class SQLModel:
     _DATABASE = None
     _TABLE = None
+    _PRIMARY_KEY = None
 
     @classmethod
     def _connect(cls):
         return sqlite3.connect(cls._DATABASE)
 
     @classmethod
-    def query(cls, query):
+    def query(cls, query, param = None):
         conn = cls._connect()
         cur = conn.cursor()
-
-        cur.execute(query)
+        if param == None:
+            cur.execute(query)
+        else:
+            cur.execute(query, param)
         conn.commit()
         conn.close()
-
-    @classmethod
-    def query_param(cls, query, param):
-        conn = cls._connect()
-        cur = conn.cursor()
-
-        cur.execute(query, param)
-        conn.commit()
-        conn.close()
-
-    def _create_DB(self):
-        """
-        Здесь мы проверяем существование таблицы
-        Если нет - создаем и накатываем поля
-        """
-        self.query("""
-                CREATE TABLE IF NOT EXISTS user 
-                (
-                    `userID` INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    `name` TEXT,
-                    `sname` TEXT,
-                    `pname` TEXT,
-                    `born` TEXT,
-                    `phone` TEXT,
-                    `rating` INTEGER,
-                    `mail` TEXT,
-                    `activity` TEXT
-                )
-            """)
-
-    def _create_mapping(self):
-        self._create_DB()
-
-        arr = (list(self._FIELDS_MAPPING.values())[1:])
-        self.query_param(
-            """
-                INSERT INTO user (name, sname, pname, born, phone, rating, mail, activity) VALUES(?,?,?,?,?,?,?,?)
-            """, arr)
-
-    def _update_mapping(self):
-        """
-        Здесь мы проверяем что у нас есть в бд из полей
-        Если чего то нет - досоздаем
-        """
-        self._create_DB()
-        _list = list(self._FIELDS_MAPPING.values())
-        arr = (_list[1:])
-        arr.append(_list[0])
-        self.query(
-            """
-                UPDATE user
-                SET
-                    name =?,
-                    sname =?,
-                    pname=?,
-                    born=?,
-                    phone=?,
-                    rating=?,
-                    mail=?,
-                    activity=?
-                WHERE userID = ?
-            """, arr)
 
     @classmethod
     def _get_by_pk(cls, pk):
@@ -91,8 +32,8 @@ class SQLModel:
             """
                 SELECT *
                 FROM :table
-                WHERE userID = :id
-            """.replace(':table', cls._TABLE).replace(':id', str(pk))
+                WHERE :pk = :id
+            """.replace(':table', cls._TABLE).replace(':id', str(pk)).replace(':pk', cls._PRIMARY_KEY)
         )
 
         result = {}
@@ -107,8 +48,7 @@ class SQLModel:
         self._create_DB()
 
         self.fill_data(record)
-        return self
-        # return record
+        return self._FIELDS_MAPPING
 
 class BasicModel(SQLModel):
     # Поля модели
