@@ -38,7 +38,7 @@ class SQLModel:
 
         result = {}
         record = cur.fetchone()
-        if cur.fetchone() != None:
+        if record != None:
             for idx, col in enumerate(cur.description):
                 result[col] = record[idx]
         conn.close()
