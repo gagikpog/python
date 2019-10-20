@@ -55,8 +55,8 @@ Studer- это Веб-Сервис, задача которого заключа
   pip install -r requirements
 # virtual environment
   # Windows:
-    python -m venv ./venv
-    set ./venv/bin/activate
+    python -m venv .\venv
+    venv\Scripts\activate.bat
 
   # Linux:
     python3 -m venv ./venv

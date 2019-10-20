@@ -11,13 +11,16 @@ class User(models.BasicModel):
         'rating': int,
         'mail': str,
         'activity': str,
-        'studID': int
+        'studID': int,
+        'login': str,
+        'password': str
     }
 
     _TABLE = 'user'
     _PRIMARY_KEY = 'userID'
 
     def __init__(self):
+        self._FIELDS_MAPPING['userID'] = 0
         self._FIELDS_MAPPING['name'] = ''
         self._FIELDS_MAPPING['sname'] = ''
         self._FIELDS_MAPPING['pname'] = ''
@@ -27,6 +30,8 @@ class User(models.BasicModel):
         self._FIELDS_MAPPING['mail'] = ''
         self._FIELDS_MAPPING['activity'] = ''
         self._FIELDS_MAPPING['studID'] = 0
+        self._FIELDS_MAPPING['login'] = ''
+        self._FIELDS_MAPPING['password'] = ''
         pass
 
     def _create_DB(self):
@@ -46,7 +51,9 @@ class User(models.BasicModel):
                     `rating` INTEGER,
                     `mail` TEXT,
                     `activity` TEXT,
-                    `studID` INTEGER
+                    `studID` INTEGER,
+                    `login` TEXT,
+                    `password` TEXT
                 )
             """)
 
@@ -65,8 +72,10 @@ class User(models.BasicModel):
                     rating,
                     mail,
                     activity,
-                    studID
-                ) VALUES(?,?,?,?,?,?,?,?,?)
+                    studID,
+                    login,
+                    password
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?)
             """, arr)
 
     def _update_mapping(self):
@@ -90,5 +99,7 @@ class User(models.BasicModel):
                     mail=?,
                     activity=?,
                     studID=?
+                    login=?
+                    password=?
                 WHERE userID = ?
             """, arr)

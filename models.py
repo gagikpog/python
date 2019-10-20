@@ -1,8 +1,5 @@
 import sqlite3
 
-class ValidationError(Exception):
-    """Ошибка валидации"""
-
 class SQLModel:
     _DATABASE = None
     _TABLE = None
@@ -40,7 +37,7 @@ class SQLModel:
         record = cur.fetchone()
         if record != None:
             for idx, col in enumerate(cur.description):
-                result[col] = record[idx]
+                result[col[0]] = record[idx]
         conn.close()
         return result
 
@@ -76,13 +73,11 @@ class BasicModel(SQLModel):
                 self.__dict__[key] = val
 
     def _validate(self, key, val):
-        key_type = self._FIELDS_MAPPING.get(key)
-        if not key_type:
-            return False
-        if key_type != type(val):
-            raise ValidationError
-        return True
+        key_value = self._FIELDS_MAPPING.get(key)
+        key_type = type(key_value)
+        return key_type == type(val)
 
+    # с этой функцией что то не так
     def to_dict(self):
         inner_dict ={}
         for key in self._FIELDS_MAPPING:
