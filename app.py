@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, abort, send_from_dir
 from user import User
 from bill import Bill
 from utility.utility import generate_token, get_hash_password, check_hash_password
+from utility.token import Token 
 
 app = Flask(__name__)
 
@@ -25,6 +26,7 @@ def auth():
     return render_template('auth.html')
 
 
+
 @app.route('/signin', methods=['POST'])
 def signin():
     if not request.json or not 'login' in request.json or not 'password' in request.json:
@@ -36,12 +38,23 @@ def signin():
     if not login or not password:
         return '{"status": "error", "messagge": "login or password is empty"}'
 
-    hash_pass = get_hash_password(password)
+    user = User()
+    user.get_by_phone(login)
 
-    token = generate_token()
-    res = {"status": "auth"}
-    res['token'] = token
-    return jsonify(res)
+    if check_hash_password(password, user.password):
+        token_str = generate_token()
+        token = Token()
+        token.token = token_str
+
+        token.create_token()
+
+        res = {'status': 'auth'}
+        res['token'] = token_str
+        return jsonify(res)
+    else:
+        res = {'status': 'error'}
+        res['message'] = 'Неверный логин или пароль.'
+        return jsonify(res)
 
 if __name__ == '__main__':
     # app.run()

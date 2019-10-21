@@ -12,7 +12,6 @@ class User(models.BasicModel):
         'mail': str,
         'activity': str,
         'studID': int,
-        'login': str,
         'password': str
     }
 
@@ -30,7 +29,6 @@ class User(models.BasicModel):
         self._FIELDS_MAPPING['mail'] = ''
         self._FIELDS_MAPPING['activity'] = ''
         self._FIELDS_MAPPING['studID'] = 0
-        self._FIELDS_MAPPING['login'] = ''
         self._FIELDS_MAPPING['password'] = ''
         pass
 
@@ -52,7 +50,6 @@ class User(models.BasicModel):
                     `mail` TEXT,
                     `activity` TEXT,
                     `studID` INTEGER,
-                    `login` TEXT,
                     `password` TEXT
                 )
             """)
@@ -73,9 +70,8 @@ class User(models.BasicModel):
                     mail,
                     activity,
                     studID,
-                    login,
                     password
-                ) VALUES(?,?,?,?,?,?,?,?,?,?,?)
+                ) VALUES(?,?,?,?,?,?,?,?,?,?)
             """, arr)
 
     def _update_mapping(self):
@@ -99,7 +95,27 @@ class User(models.BasicModel):
                     mail=?,
                     activity=?,
                     studID=?
-                    login=?
                     password=?
                 WHERE userID = ?
             """, arr)
+
+    def get_by_phone(self, phone):
+        conn = self._connect()
+        cur = conn.cursor()
+
+        cur.execute(
+            """
+                SELECT *
+                FROM :table
+                WHERE phone = :id
+            """.replace(':table', self._TABLE).replace(':id', phone)
+        )
+
+        result = {}
+        record = cur.fetchone()
+        if record != None:
+            for idx, col in enumerate(cur.description):
+                result[col[0]] = record[idx]
+        conn.close()
+        self.fill_data(result)
+        return self._FIELDS_MAPPING
