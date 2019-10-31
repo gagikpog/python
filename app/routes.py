@@ -24,18 +24,15 @@ def queryRead():
     if request.method == 'GET':
         Id = request.args.get('id')
         if not Id:
-            return "Не найден обязательный параметр: id"
+            res = {'status':'Не найден обязательный параметр: id'}
+            return jsonify(res)
         else:
-            user = User.query.filter_by(id=Id).first()
-            if user:
-                return jsonify(user.to_dict())
+            obj = User.query.filter_by(id=Id).first()
+            if obj:
+                return jsonify(obj.to_dict())
             else: 
-                return 'По вашему запросу ничего не найдено'
-@app.route('/query/create', methods=['GET'])
-def queryCreate():
-    if request.method == 'GET':
-        db.create_all()
-        return "База создана"
+                res = {'status': 'По вашему запросу ничего не найдено'}
+                return jsonify(res)
 @app.route('/query/add', methods=['POST'])
 def queryAdd():
     if request.method == 'POST':
@@ -45,14 +42,14 @@ def queryAdd():
         json = request.json
         user = User()
         user.init_of_dict(json)
-        if User.query.filter_by(mail = user.mail).first() != None:
-            return "Такая почта уже добавлена"
-        if User.query.filter_by(phone = user.phone).first() != None:
-            return "Такой номер уже добавлен"
-        db.session.add(user)
-        db.session.commit()
-        res = "Данные добавлены"
-        return res
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except:
+            res = {'status': 'Такие данные уже существуют'}
+            return jsonify(res)
+        res = {'status':'Данные добавлены'}
+        return jsonify(res)
 
 @app.route('/query/update', methods=['POST'])
 def queryUpdate():
@@ -64,15 +61,17 @@ def queryUpdate():
         user = User()
         user.init_of_dict(json)
         if not user.id:
-            return "Не найден обязательный параметр: id"
+            res = {'status':'Не найден обязательный параметр: id'}
+            return jsonify(res)
         else:
             if User.query.filter_by(id = user.id).first() != None:
                 User.query.filter_by(id = user.id).update(user.to_dict())
                 db.session.commit()
-                res = "Данные обновлены"
-                return res
+                res = {'status':'Данные обновлены'}
+                return jsonify(res)
             else:
-                return "Данные с таким id не найдены"
+                res = {'status': 'Данные с таким id не найдены'}
+                return jsonify(res)
 
 @app.route('/query/delete', methods=['POST'])
 def queryDelete():
@@ -84,15 +83,17 @@ def queryDelete():
         user = User()
         user.init_of_dict(json)
         if not user.id:
-            return "Не найден обязательный параметр: id"
+            res = {'status': 'Не найден обязательный параметр: id'}
+            return jsonify(res)
         else:
             if User.query.filter_by(id = user.id).first() != None:
                 User.query.filter_by(id = user.id).delete()
                 db.session.commit()
-                res = "Вам смешно, а пацанчик то реально умер"
+                res = {'status': 'Вам смешно, а пацанчик то реально умер'}
                 return res
             else:
-                return "Данные с таким id не найдены"
+                res = {'status': 'Данные с таким id не найдены'}
+                return jsonify(res)
 
 @app.route('/src/<path:path>')
 def src(path):

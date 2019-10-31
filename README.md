@@ -62,4 +62,7 @@ Studer- это Веб-Сервис, задача которого заключа
     python3 -m venv ./venv
     which pip3
     source ./venv/bin/activate
+
+  # Start app
+    python3 -m flask run
 ```

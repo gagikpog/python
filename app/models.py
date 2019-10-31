@@ -22,9 +22,9 @@ class User(db.Model):
     def to_dict(self):
         res = {}
         di = self.__dict__
-        j = -1
+        j = 0
         for i in di:
-            if j == -1:
+            if j == 0:
                 j+=1
                 continue
             res[str(i)] = getattr(self, i)
