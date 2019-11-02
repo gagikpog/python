@@ -4,23 +4,8 @@ from app.forms import LoginForm
 from app.models import User, Bill
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        return redirect(url_for('index'))
-    return render_template('login.html',  title='Sign In', form=form)
-
-@app.route('/query/read', methods=['GET'])
-def queryRead():
+@app.route('/user/read', methods=['GET'])
+def userRead():
     if request.method == 'GET':
         Id = request.args.get('id')
         if not Id:
@@ -33,8 +18,10 @@ def queryRead():
             else: 
                 res = {'status': 'По вашему запросу ничего не найдено'}
                 return jsonify(res)
-@app.route('/query/add', methods=['POST'])
-def queryAdd():
+
+
+@app.route('/user/add', methods=['POST'])
+def userAdd():
     if request.method == 'POST':
         if not request.json:
             abort(400)
@@ -51,8 +38,8 @@ def queryAdd():
         res = {'status':'Данные добавлены'}
         return jsonify(res)
 
-@app.route('/query/update', methods=['POST'])
-def queryUpdate():
+@app.route('/user/update', methods=['POST'])
+def userUpdate():
     if request.method == 'POST':
         if not request.json:
             abort(400)
@@ -73,8 +60,8 @@ def queryUpdate():
                 res = {'status': 'Данные с таким id не найдены'}
                 return jsonify(res)
 
-@app.route('/query/delete', methods=['POST'])
-def queryDelete():
+@app.route('/user/delete', methods=['POST'])
+def userDelete():
     if request.method == 'POST':
         if not request.json:
             abort(400)
@@ -94,7 +81,3 @@ def queryDelete():
             else:
                 res = {'status': 'Данные с таким id не найдены'}
                 return jsonify(res)
-
-@app.route('/src/<path:path>')
-def src(path):
-    return send_from_directory('src', path)

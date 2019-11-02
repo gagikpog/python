@@ -8,3 +8,4 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'studer.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = True
+    JSON_AS_ASCII = False
