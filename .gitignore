@@ -1,4 +1,5 @@
-_*
+*.log
+*.temp
 venv
 __pycache__
 .vscode
