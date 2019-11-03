@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired #проверяет, что бы поле не было отправлено пустым
+from wtforms.validators import DataRequired, Email, EqualTo #проверяет, что бы поле не было отправлено пустым
 from app.models import User
 
 class LoginForm(FlaskForm): #отдает поля формы в HTML
@@ -11,7 +11,7 @@ class LoginForm(FlaskForm): #отдает поля формы в HTML
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    mail = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
@@ -22,7 +22,7 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different username.')
 
-    def validate_mail(self, mail):
-        user = User.query.filter_by(mail=mail.data).first()
+    def validate_email(self, email):
+        user = User.query.filter_by(mail=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
