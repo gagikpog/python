@@ -17,8 +17,8 @@ class mixin():
         for key, val in _dict.items():
             setattr(self, key, val)
 roles_users = db.Table('roles_users',
-        db.Column('user_id', db.integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.integer(), db.ForeignKey('role.id'))
+        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
     )
 
 class User(db.Model, mixin):
@@ -58,6 +58,6 @@ class Bill(db.Model, mixin):
         return '<Bill {}>'.format(self.title)
 
 class Role(db.Model,mixin):
-    id = db.Column(db.integer(), primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     status_authorization = db.Column(db.String(15))
     
