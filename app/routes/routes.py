@@ -42,3 +42,6 @@ def register():
 def src(path):
     return send_from_directory('src', path)
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('notFind.html')
