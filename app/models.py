@@ -16,9 +16,14 @@ class mixin():
     def init_of_dict(self, _dict):
         for key, val in _dict.items():
             setattr(self, key, val)
+roles_users = db.Table('roles_users',
+        db.Column('user_id', db.integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.integer(), db.ForeignKey('role.id'))
+    )
 
 class User(db.Model, mixin):
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(32), unique=True)
     phone = db.Column(db.String(32), index=True, unique=True)
     mail = db.Column(db.String(120), index=True, unique=True)
     name = db.Column(db.String(64))
@@ -27,9 +32,9 @@ class User(db.Model, mixin):
     born = db.Column(db.DateTime)
     rating = db.Column(db.Integer)
     activity = db.Column(db.String(64))
-    password_hash = db.Column(db.String(128))
-
-    bills = db.relationship('Bill', backref='author', lazy='dynamic')
+    password_hash = db.Column(db.String(128), nullable=False)
+    roles = db.relationship('Role', secondary=roles_users, backref= db.backref('users', lazy='dynamic'))
+    bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
 
     def __repr__(self):
         return '<User {}, {}>'.format(self.name, self.mail)
@@ -51,3 +56,8 @@ class Bill(db.Model, mixin):
 
     def __repr__(self):
         return '<Bill {}>'.format(self.title)
+
+class Role(db.Model,mixin):
+    id = db.Column(db.integer(), primary_key=True)
+    status_authorization = db.Column(db.String(15))
+    
