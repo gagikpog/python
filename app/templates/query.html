@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query</title>
+    <script src="/src/js/lib/jQuery.js"></script>
+</head>
+<body>
+    <input type="text" value="http://127.0.0.1:5000/" id="path">
+    <br>
+    <select name="selectQ" id="sel">
+        <option value="POST">POST</option>
+        <option value="GET">GET</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+    </select><br>    
+    <br>
+    <textarea name="txtArea" id="textArea" style="width: 90%;" cols="30" rows="10"></textarea><br>
+    <textarea name="tArea" id="tArea" style="width: 90%;" cols="100" rows="10"></textarea><br>
+    <button onclick="run()">clickMe</button>
+    <script src="/src/js/query.js"></script>
+</body>
+</html>

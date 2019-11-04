@@ -11,7 +11,9 @@ class Bill_api(Resource):
     """
     def get(self, id=None):
         if id == None:
-            res = {'status':'Не найден обязательный параметр: id'}
+            res = []
+            for bi in Bill.query.all():
+                res.append(bi.to_dict())
             return jsonify(res)
         else:
             obj = Bill.query.filter_by(id=id).first()
@@ -66,7 +68,7 @@ class Bill_api(Resource):
         if query.first() != None:
             query.delete()
             db.session.commit()
-            res = {'status': 'Вам смешно, ну смейтесь'}
+            res = {'status': 'Запись удалена!'}
             return res
         else:
             res = {'status': 'Данные с таким id не найдены'}
