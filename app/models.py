@@ -1,5 +1,6 @@
 from datetime import datetime
 from app import db
+from app.utility.utility import get_hash_password
 
 class mixin():
     def to_dict(self):
@@ -16,6 +17,7 @@ class mixin():
     def init_of_dict(self, _dict):
         for key, val in _dict.items():
             setattr(self, key, val)
+
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
@@ -38,6 +40,10 @@ class User(db.Model, mixin):
 
     def __repr__(self):
         return '<User {}, {}>'.format(self.name, self.mail)
+
+    def set_password(self, password):
+        pass_hash = get_hash_password(password)
+        self.password_hash = pass_hash
 
 
 class Bill(db.Model, mixin):
