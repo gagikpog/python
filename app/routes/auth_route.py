@@ -14,7 +14,7 @@ def login():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
         return redirect(url_for('index'))
-    return render_template('login.html',  title='Sign In', form=form)
+    return render_template('login.html',  title='Вход', form=form)
 
 @app.route('/logout')
 def logout():
@@ -27,10 +27,25 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, mail=form.email.data)
+        userData = {
+            'name': form.name.data,
+            'pname': form.pname.data,
+            'sname': form.sname.data,
+            'activity': form.activity.data
+        }
+        uname = form.username.data
+        user = None
+        if '@' in uname:
+            userData["mail"] = uname
+        else:
+            userData["phone"] = uname
+
+        user = User()
+        user.init_of_dict(userData)
+
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Registration Ok!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form) 
+    return render_template('register.html', title='Регистрация', form=form) 

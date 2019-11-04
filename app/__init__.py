@@ -20,7 +20,7 @@ manager=Manager(app)
 manager.add_command('db',MigrateCommand)
 login = LoginManager(app)
 login.login_view = 'login'
-#login.login_view = 'login'
+
 from app import models
 from app.routes import user_route, routes, bill_route, auth_route
 #администрирование- продумать позже

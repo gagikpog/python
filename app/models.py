@@ -25,7 +25,6 @@ roles_users = db.Table('roles_users',
 
 class User(db.Model, mixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(32), unique=True)
     phone = db.Column(db.String(32), index=True, unique=True)
     mail = db.Column(db.String(120), index=True, unique=True)
     name = db.Column(db.String(64))
