@@ -15,6 +15,7 @@ api = Api(app)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
 manager=Manager(app)
 manager.add_command('db',MigrateCommand)
 login = LoginManager(app)

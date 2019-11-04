@@ -37,6 +37,7 @@ class User(db.Model, mixin):
     password_hash = db.Column(db.String(128), nullable=False)
     roles = db.relationship('Role', secondary=roles_users, backref= db.backref('users', lazy='dynamic'))
     bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
+    bills = db.relationship('Bill', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}, {}>'.format(self.name, self.mail)
@@ -66,4 +67,3 @@ class Bill(db.Model, mixin):
 class Role(db.Model,mixin):
     id = db.Column(db.Integer(), primary_key=True)
     status_authorization = db.Column(db.String(15))
-    

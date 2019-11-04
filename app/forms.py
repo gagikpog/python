@@ -6,7 +6,7 @@ from wtforms.validators import ValidationError
 import re
 from app.utility.utility import check_hash_password
 
-class LoginForm(FlaskForm): #отдает поля формы в HTML
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')

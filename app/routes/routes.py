@@ -19,5 +19,8 @@ def src(path):
 
 @app.errorhandler(404)
 def not_found(error):
-   return render_template('notFind.html')
+    return render_template('notFind.html')
 
+@app.route('/query')
+def query():
+    return render_template('query.html')
