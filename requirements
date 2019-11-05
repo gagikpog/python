@@ -6,3 +6,4 @@ flask-restful
 Flask-Security
 Flask-Login
 Flask-Admin
+Flask-Script
