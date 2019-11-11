@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-WTF
+flask-restful
+Flask-Security
+Flask-Login
+Flask-Admin

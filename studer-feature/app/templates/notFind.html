@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* Простите меня за это */
+        div, h1 {
+            text-align:center;
+        }
+        div {
+            font-size: 50pt;
+        }
+        button {
+            font-size: 20px;
+            width: 100px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Page not find</h1>
+    <div> 404 </div>
+    <div>
+        <a href="{{ url_for('index') }}">
+            <button>
+                Home
+            </button>
+        </a>
+    </div>
+</body>
+</html>
