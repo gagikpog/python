@@ -9,3 +9,6 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = True
     JSON_AS_ASCII = False
+
+    SECURITY_PASSWORD_SALT = 'super hash'
+    SECURITY_PASSWORD_HASH = 'sha512_crypt'

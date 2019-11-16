@@ -30,5 +30,6 @@ from app.routes import user_route, routes, bill_route, auth_route
 #admin.add_view(ModelView())
 
 ### Flask-security ###
-#user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-#security = Security(app, user_datastore)
+from app.models import User, Role
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)

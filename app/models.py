@@ -1,6 +1,7 @@
 from datetime import datetime
 from app import db
 from app.utility.utility import get_hash_password
+from flask_security import UserMixin, RoleMixin
 
 class mixin():
     def to_dict(self):
@@ -23,7 +24,7 @@ roles_users = db.Table('roles_users',
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
     )
 
-class User(db.Model, mixin):
+class User(db.Model, mixin, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String(32), index=True, unique=True)
     mail = db.Column(db.String(120), index=True, unique=True)
@@ -33,17 +34,18 @@ class User(db.Model, mixin):
     born = db.Column(db.DateTime)
     rating = db.Column(db.Integer)
     activity = db.Column(db.String(64))
-    password_hash = db.Column(db.String(128), nullable=False)
-    roles = db.relationship('Role', secondary=roles_users, backref= db.backref('users', lazy='dynamic'))
+    password = db.Column(db.String(255), nullable=False)
+    roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
     bills = db.relationship('Bill', backref='author', lazy='dynamic')
+    active = db.Column(db.Boolean())
 
     def __repr__(self):
         return '<User {}, {}>'.format(self.name, self.mail)
 
     def set_password(self, password):
         pass_hash = get_hash_password(password)
-        self.password_hash = pass_hash
+        self.password = pass_hash
 
 
 class Bill(db.Model, mixin):
@@ -63,6 +65,7 @@ class Bill(db.Model, mixin):
     def __repr__(self):
         return '<Bill {}>'.format(self.title)
 
-class Role(db.Model,mixin):
+class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    status_authorization = db.Column(db.String(15))
+    name = db.Column(db.String(100), unique=True)
+    # status_authorization = db.Column(db.String(15))

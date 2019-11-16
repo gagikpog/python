@@ -7,3 +7,4 @@ Flask-Security
 Flask-Login
 Flask-Admin
 Flask-Script
+Flask-User

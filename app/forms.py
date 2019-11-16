@@ -19,8 +19,11 @@ class LoginForm(FlaskForm):
             user = User.query.filter_by(mail=username).first()
         else:
             user = User.query.filter_by(phone=username).first()
-        if not user or not check_hash_password(curPass, user.password_hash):
+        # if not user or not check_hash_password(curPass, user.password):
+        if not user or not curPass == user.password:
             raise ValidationError('Неверный логин или пароль')
+        else:
+            print('login')
 
 
 
