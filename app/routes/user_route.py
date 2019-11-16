@@ -73,4 +73,4 @@ class User_api(Resource):
             return jsonify(res)
 
 
-api.add_resource(User_api, '/user', '/user/', '/user/<id>')
+api.add_resource(User_api, '/api/user', '/api/user/', '/api/user/<id>')

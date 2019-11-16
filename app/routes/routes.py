@@ -22,3 +22,14 @@ def not_found(error):
 @app.route('/query')
 def query():
     return render_template('query.html')
+
+@app.route('/user/<userID>')
+def userPage(userID):
+    user = User.query.filter_by(id=userID).first()
+    return render_template('userPage.html', user=user)
+
+
+@app.route('/tasks')
+def tasksList():
+    bills = Bill.query.all()
+    return render_template('tasks.html', tasks=bills)
