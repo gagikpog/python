@@ -1,25 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-	<link rel="stylesheet" type="text/css" href="/src/style/main.css">
-    <meta charset="UTF-8" />
-    <title>STUDER</title>
-</head>
-<body>
+﻿{% extends "base.html" %} 
 
-<header>
-	<div class="container">
-		<div class="header-block">
-			<ol class="header-block__nav">
-				<li><a href="#">О нас</a></li>
-				<li><a href="#">Личный кабинет</a></li>
-				<li><a href="#">Площадка</a></li>
-				<li><a href="{{url_for('register') }}">Регистрация</a></li>
-			</ol>
-		</div>
-	</div>
-</header>
-
+{% block content %}
 <div class="main-banner">
 	<div class="container">
 		<div class="banner-block">
@@ -130,11 +111,5 @@
 		</div>
 	</div>
 </div>
-
-<footer>
-	<strong>STUDER</strong>
-</footer>
-
-</body>
-</html>
+{% endblock %}
 <!-- ©Сергей Осинцев -->

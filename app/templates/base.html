@@ -1,19 +1,30 @@
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="/src/style/main.css">
+        <meta charset="UTF-8" />
         {% if title %}
         <title>{{ title }} - Studer</title>
         {% else %}
-        <title>Welcome to Studer</title>
+        <title>Studer</title>
         {% endif %}
     </head>
     <body>
-        <div>
-            Studer:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('login') }}">Login</a>
-        </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
+        <header>
+            <div class="container">
+                <div class="header-block">
+                    <ol class="header-block__nav">
+                        <li><a href="{{ url_for('index') }}">Studer</a></li>
+                        <li><a href="{{ url_for('about_us') }}">О нас</a></li>
+                        <li><a href="{{ url_for('userPage') }}">Личный кабинет</a></li>
+                        <li><a href="{{ url_for('tasksList') }}">Площадка</a></li>
+                        <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+                        <li><a href="{{ url_for('login') }}">Вход</a></li>
+                    </ol>
+                </div>
+            </div>
+        </header>
+
+        <!-- {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul>
             {% for message in messages %}
@@ -21,7 +32,16 @@
             {% endfor %}
         </ul>
         {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+        {% endwith %} -->
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+
+
+    <footer>
+        <strong>STUDER</strong>
+    </footer>
+
     </body>
 </html>

@@ -13,8 +13,10 @@ body {
 	margin: 0;
 	font-family: Montserrat-Medium, sans-serif;
 	background: url(../img/back_first.svg);
-	background-size: contain; 
+	background-size: auto; 
 	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
 }
 
 body >* {
@@ -243,4 +245,9 @@ footer {
 	background-color: #F4878D;
 	text-align: center;
 	letter-spacing: 3px;
+}
+
+
+main {
+	flex: 1;
 }
