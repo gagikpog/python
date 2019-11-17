@@ -23,7 +23,7 @@ class Bill_api(Resource):
                 res = {'status': 'По вашему запросу ничего не найдено'}
                 return jsonify(res)
 
-    def post(self, id=None):
+    def post(self):
         if not request.json:
             abort(400)
             return ''
@@ -75,4 +75,4 @@ class Bill_api(Resource):
             return jsonify(res)
 
 
-api.add_resource(Bill_api, '/bill', '/bill/', '/bill/<id>')
+api.add_resource(Bill_api, '/api/bill', '/api/bill/', '/api/bill/<id>')

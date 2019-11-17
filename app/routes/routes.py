@@ -23,3 +23,24 @@ def not_found(error):
 @app.route('/query')
 def query():
     return render_template('query.html')
+
+@app.route('/user/')
+@app.route('/user/<userID>')
+def userPage(userID=None):
+    if userID:
+        user = User.query.filter_by(id=userID).first()
+    else:
+        if current_user.is_authenticated:
+            user = current_user
+        else: 
+            return redirect(url_for('login'))
+    return render_template('userPage.html', user=user)
+
+@app.route('/tasks')
+def tasksList():
+    bills = Bill.query.all()
+    return render_template('tasks.html', tasks=bills, title='Площадка')
+
+@app.route('/about-us')
+def about_us():
+    return render_template('aboutUs.html', title='О нас')
