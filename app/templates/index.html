@@ -10,8 +10,9 @@
 				<h2>STUDER</h2>
 
 				<p>не замечай границ</p>
-
-				<a href="/login">Log in</a>
+				{% if not current_user.is_authenticated %}
+					<a href="/login">Log in</a>
+				{% endif %}
 			</div>
 
 			<img alt="Рисунок 1" src="/src/img/main-banner.png">

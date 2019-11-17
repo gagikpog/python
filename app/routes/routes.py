@@ -8,7 +8,6 @@ from app.models import User, Bill
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
     return render_template('index.html')
 
@@ -26,6 +25,7 @@ def query():
 
 @app.route('/user/')
 @app.route('/user/<userID>')
+@login_required
 def userPage(userID=None):
     if userID:
         user = User.query.filter_by(id=userID).first()
