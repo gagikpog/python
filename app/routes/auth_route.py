@@ -11,7 +11,11 @@ from wtforms.validators import ValidationError
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(id=1).first()
+        username = form.username.data
+        if '@' in username:
+            user = User.query.filter_by(mail=username).first()
+        else:
+            user = User.query.filter_by(phone=username).first()
         login_user(user)
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
