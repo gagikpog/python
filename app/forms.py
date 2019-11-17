@@ -5,6 +5,7 @@ from app.models import User
 from wtforms.validators import ValidationError
 import re
 from app.utility.utility import check_hash_password
+from flask_login import login_user
 
 class LoginForm(FlaskForm):
     username = StringField('Телефон или почта', validators=[DataRequired()])
@@ -19,11 +20,10 @@ class LoginForm(FlaskForm):
             user = User.query.filter_by(mail=username).first()
         else:
             user = User.query.filter_by(phone=username).first()
-        # if not user or not check_hash_password(curPass, user.password):
-        if not user or not curPass == user.password:
+        if not user or not check_hash_password(curPass, user.password):
             raise ValidationError('Неверный логин или пароль')
         else:
-            print('login')
+            login_user(user)
 
 
 
@@ -61,8 +61,6 @@ class RegistrationForm(FlaskForm):
         newPassword = password.data
         passPattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^&+~:,;\-\!\\\/\.\?=]).*$"
         result = re.findall(passPattern, newPassword)
-        print(newPassword)
-        print(result)
         if not result:
             raise ValidationError("""
                 Пароль должен состоять от 8 символов, цифр и букв английского алфавита.

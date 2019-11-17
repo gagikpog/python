@@ -1,7 +1,7 @@
 from datetime import datetime
 from app import db
 from app.utility.utility import get_hash_password
-from flask_security import UserMixin, RoleMixin
+from flask_login import UserMixin #, RoleMixin
 
 class mixin():
     def to_dict(self):
@@ -19,10 +19,10 @@ class mixin():
         for key, val in _dict.items():
             setattr(self, key, val)
 
-roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
-    )
+# roles_users = db.Table('roles_users',
+#         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+#         db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
+#     )
 
 class User(db.Model, mixin, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +35,7 @@ class User(db.Model, mixin, UserMixin):
     rating = db.Column(db.Integer)
     activity = db.Column(db.String(64))
     password = db.Column(db.String(255), nullable=False)
-    roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
+    # roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
     bills = db.relationship('Bill', backref='author', lazy='dynamic')
     active = db.Column(db.Boolean())
@@ -65,7 +65,7 @@ class Bill(db.Model, mixin):
     def __repr__(self):
         return '<Bill {}>'.format(self.title)
 
-class Role(db.Model, RoleMixin):
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(100), unique=True)
+# class Role(db.Model, RoleMixin):
+#     id = db.Column(db.Integer(), primary_key=True)
+#     name = db.Column(db.String(100), unique=True)
     # status_authorization = db.Column(db.String(15))

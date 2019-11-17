@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, send_from_directory, request, jsonify, abort
 from flask_login import login_user, logout_user, current_user, login_required
 #from werkzeug.urls import url_parse
-from app import app, db
+from app import app, db, login_manager
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, Bill
 from wtforms.validators import ValidationError
@@ -11,9 +11,13 @@ from wtforms.validators import ValidationError
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        user = User.query.filter_by(id=1).first()
+        login_user(user)
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        return redirect(url_for('index'))
+        
+        next = request.args.get('next')
+        return redirect(next or url_for('index'))
     return render_template('login.html',  title='Вход', form=form)
 
 @app.route('/logout')
@@ -49,3 +53,7 @@ def register():
         flash('Registration Ok!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Регистрация', form=form) 
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.filter_by(id=id).first()
