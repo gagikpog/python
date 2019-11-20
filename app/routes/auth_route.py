@@ -6,23 +6,24 @@ from app.forms import LoginForm, RegistrationForm
 from app.models import User, Bill
 from wtforms.validators import ValidationError
 
+def get_by_phone_or_mail(username):
+    if '@' in username:
+        return User.query.filter_by(mail=username).first()
+    else:
+        return User.query.filter_by(phone=username).first()
+
+def login_form(form):
+    if form.validate_on_submit():
+        login_user(get_by_phone_or_mail(form.username.data))
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        return redirect(request.args.get('next') or url_for('index'))
+    else:
+        return render_template('login.html', title='Вход', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        if '@' in username:
-            user = User.query.filter_by(mail=username).first()
-        else:
-            user = User.query.filter_by(phone=username).first()
-        login_user(user)
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        
-        next = request.args.get('next')
-        return redirect(next or url_for('index'))
-    return render_template('login.html',  title='Вход', form=form)
+    return login_form(LoginForm())
 
 @app.route('/logout')
 def logout():
