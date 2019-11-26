@@ -8,6 +8,7 @@ from app.utility.utility import check_hash_password
 from flask_login import login_user
 
 class LoginForm(FlaskForm):
+    #Валидация полученных данных
     username = StringField('Телефон или почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')

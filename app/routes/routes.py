@@ -9,6 +9,7 @@ from app.models import User, Bill
 @app.route('/')
 @app.route('/index')
 def index():
+    #Рендрим и возвращаем страницу
     return render_template('index.html')
 
 @app.route('/src/<path:path>')
@@ -17,30 +18,39 @@ def src(path):
 
 @app.errorhandler(404)
 def not_found(error):
+    #Реднрим и возвращаем страницу "404 Not found"
     return render_template('notFind.html')
 
 @app.route('/query')
 def query():
+    #Рендрим и возвращаем страницу
     return render_template('query.html')
 
 @app.route('/user/')
 @app.route('/user/<userID>')
 @login_required
+#Страница юзера
 def userPage(userID=None):
     if userID:
         user = User.query.filter_by(id=userID).first()
     else:
+        #Если id не был дан, то возвращаем на страницу авторизации
         if current_user.is_authenticated:
             user = current_user
         else: 
             return redirect(url_for('login'))
+    #Рендрим и возвращаем страницу
     return render_template('userPage.html', user=user)
 
+
+#Страница с задачами
 @app.route('/tasks')
 def tasksList():
     bills = Bill.query.all()
+    #Рендрим и возвращаем страницу
     return render_template('tasks.html', tasks=bills, title='Площадка')
 
 @app.route('/about-us')
 def about_us():
+    #Рендрим и возвращаем страницу
     return render_template('aboutUs.html', title='О нас')

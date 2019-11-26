@@ -6,6 +6,7 @@ from app.forms import LoginForm, RegistrationForm
 from app.models import User, Bill
 from wtforms.validators import ValidationError
 
+#Авторизация
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
