@@ -1,11 +1,43 @@
-{% extends "base.html" %}
 
+{% block head %}
+
+<!-- <script src="/src/js/query.js"></script> -->
+<script src="/src/js/lib/jQuery.js"></script>
+
+<script>   
+    function updateUser() {
+        const path = '/api/user/4';
+        const select = "PUT";
+        const text = {id:4, name: 'Ycpex'};
+        
+        $.ajax({
+            url: path,
+            type: select,
+            data: JSON.stringify(text),
+            contentType: "application/json",
+            success: function(data) {
+                const jsonData = JSON.stringify(data);
+            }
+        });
+    
+    }
+</script>
+
+{% endblock %}
+
+
+{% extends "base.html" %}
 {% block content %}
     <h1>user page</h1>
     {{ user.name }}
     {{ user.sname }}
     {{ user.pname }}
-    {{ user.userID }}
+    {{ user.id }}
     ...
-
+    <br>
+    <button onclick="updateUser()">Редактировать</button>   
+    <input id="path" class="updateUser__input" type="text" value="{{ user.name }}">
+    <input class="updateUser__input" type="text" value="{{ user.sname }}">
+    <input class="updateUser__input" type="text" value="{{ user.pname }}">
 {% endblock %}
+
