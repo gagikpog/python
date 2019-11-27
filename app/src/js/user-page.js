@@ -5,10 +5,18 @@ function updateUser() {
     const select = "PUT";
     const text = {id:4, name: $('#name').val(),sname: $('#sname').val(),
     pname: $('#pname').val()};
+    let name = document.getElementById('name');
+    let sname = document.getElementById('sname');
+    let pname = document.getElementById('pname');
 
 
+    if (document.getElementById("pen").style.backgroundPositionX == "-42px") {
 
-    if (document.getElementById("pen").style.backgroundPositionX == "-34px") {
+        if ((name.value == '') || (sname.value == '') || (pname.value == '') ) {   
+            console.log('ПУСТЫЕ ПОЛЯ')         
+            alert('Заполните пустые поля!');
+        }
+
         document.getElementById("pen").style.backgroundPositionX = "0px";
         document.getElementById("user-update__Input").style.display = "none";
         document.getElementById("user-update__Name").style.display = "flex";
@@ -22,28 +30,17 @@ function updateUser() {
                 const jsonData = JSON.stringify(data);
             }
         });
-        document.getElementById("nameResult").innerHTML = document.getElementById('name').value;
-        document.getElementById("snameResult").innerHTML = document.getElementById('sname').value;
-        document.getElementById("pnameResult").innerHTML = document.getElementById('pname').value;
+        document.getElementById("nameResult").innerHTML = name.value;
+        document.getElementById("snameResult").innerHTML = sname.value;
+        document.getElementById("pnameResult").innerHTML = pname.value;
     }
     else {
-        document.getElementById("pen").style.backgroundPositionX = "-34px" 
+        document.getElementById("pen").style.backgroundPositionX = "-42px" 
         document.getElementById("user-update__Input").style.display = "flex";
         document.getElementById("user-update__Name").style.display = "none";
     };
 }
 
-function check(e) {
-    // Любой ваш код, в том числе сообщение об ошибке
-  
-    if (e.value < 81) {
-      e.value = '';
-      alert('Меньше 81!')
-    }
-  
-    e.value = e.value.replace(/[^a-Z.]/g, ''); 
-    e.value = e.value.replace(/(\..*)\./g, '$1');
-}
 
 function spoilerShow (number,countElem) {
     let tumbler = false;
