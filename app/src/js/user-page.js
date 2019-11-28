@@ -11,12 +11,7 @@ function updateUser() {
 
 
     if (document.getElementById("pen").style.backgroundPositionX == "-42px") {
-
-        if ((name.value == '') || (sname.value == '') || (pname.value == '') ) {   
-            console.log('ПУСТЫЕ ПОЛЯ')         
-            alert('Заполните пустые поля!');
-        }
-
+        
         document.getElementById("pen").style.backgroundPositionX = "0px";
         document.getElementById("user-update__Input").style.display = "none";
         document.getElementById("user-update__Name").style.display = "flex";
