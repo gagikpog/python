@@ -9,39 +9,30 @@ from wtforms.validators import ValidationError
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
+    loginForm = LoginForm()
+    registrForm = RegistrationForm()
+
+    if loginForm.validate_on_submit():
+        username = loginForm.username.data
         if '@' in username:
             user = User.query.filter_by(mail=username).first()
         else:
             user = User.query.filter_by(phone=username).first()
         login_user(user)
         flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
+            loginForm.username.data, loginForm.remember_me.data))
         
         next = request.args.get('next')
         return redirect(next or url_for('index'))
-    return render_template('login.html',  title='Вход', form=form)
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
+    if registrForm.validate_on_submit():
         userData = {
-            'name': form.name.data,
-            'pname': form.pname.data,
-            'sname': form.sname.data,
-            'activity': form.activity.data
+            'name': registrForm.name.data,
+            'pname': registrForm.pname.data,
+            'sname': registrForm.sname.data,
+            'activity': registrForm.activity.data
         }
-        uname = form.username.data
+        uname = registrForm.username.data
         user = None
         if '@' in uname:
             userData["mail"] = uname
@@ -51,12 +42,49 @@ def register():
         user = User()
         user.init_of_dict(userData)
 
-        user.set_password(form.password.data)
+        user.set_password(registrForm.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Registration Ok!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Регистрация', form=form) 
+
+    return render_template('login.html',  title='Вход', loginForm=loginForm, registrForm=registrForm)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+
+    registrForm = RegistrationForm()
+    if registrForm.validate_on_submit():
+        userData = {
+            'name': registrForm.name.data,
+            'pname': registrForm.pname.data,
+            'sname': registrForm.sname.data,
+            'activity': registrForm.activity.data
+        }
+        uname = registrForm.username.data
+        user = None
+        if '@' in uname:
+            userData["mail"] = uname
+        else:
+            userData["phone"] = uname
+
+        user = User()
+        user.init_of_dict(userData)
+
+        user.set_password(registrForm.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration Ok!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Регистрация', registrForm=registrForm) 
 
 @login_manager.user_loader
 def load_user(id):

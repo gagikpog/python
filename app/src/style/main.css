@@ -299,10 +299,12 @@ footer {
   box-sizing: border-box;
   padding: 24px;
   font-size: 50px;
-  height: 100px;
-  background-color: #F4878D;
+  height: 73px;
+  background-color: #1A1A1A;
   text-align: center;
   letter-spacing: 3px;
+  font-size: 15px;
+  color: #FEFEFE;
 }
 main {
   flex: 1;

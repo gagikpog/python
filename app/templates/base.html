@@ -32,7 +32,7 @@
                         {% if current_user.is_authenticated %}
                             <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="/src/img/user-page/avatar.svg" alt="">    
-                                <p>Сергей</p>
+                                <p id="hereUserName">Name</p>
                             </a>
                         {% else %}
                             <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
@@ -61,38 +61,21 @@
     </div>
 </header>
 
-        <!-- <header>
-            <div class="container">
-                <div class="header-block">
-                    <ol class="header-block__nav">
-                        <li><a href="{{ url_for('index') }}">Studer</a></li>
-                        <li><a href="{{ url_for('about_us') }}">О нас</a></li>
-                        <li><a href="{{ url_for('userPage') }}">Личный кабинет</a></li>
-                        <li><a href="{{ url_for('tasksList') }}">Площадка</a></li>
-                        {% if current_user.is_authenticated %}
-                            <li><a href="{{ url_for('logout') }}">Выход</a></li>
-                        {% else %}
-                            <li><a href="{{ url_for('login') }}">Вход</a></li> -->
-                        <!-- {% endif %} -->
-                        
-                    <!-- </ol>
-                </div>
-            </div>
-        </header> -->
-
-        <main>
-            {% block content %}{% endblock %}
-        </main>
+<main>
+    {% block content %}{% endblock %}
+</main>
 
 
 
-    <footer>
-        <strong>STUDER</strong>
-    </footer>
+<footer>
+    <strong>STUDER</strong>
+</footer>
 
-    </body>
+</body>
 
-    <script src="/src/js/lib/bootstrap.min.js"></script>
-    <script src="/src/js/lib/bootstrap.bundle.min.js"></script>
-    
+<script src="/src/js/lib/bootstrap.min.js"></script>
+<script src="/src/js/lib/bootstrap.bundle.min.js"></script>
+<script src="/src/js/lib/jQuery.js" ></script>
+
+
 </html>

@@ -3,7 +3,7 @@ function updateUser() {
     let user_id = document.getElementById("userId").innerHTML
     const path = '/api/user/' + user_id;
     const select = "PUT";
-    const text = {id:4, name: $('#name').val(),sname: $('#sname').val(),
+    const text = {id: user_id, name: $('#name').val(),sname: $('#sname').val(),
     pname: $('#pname').val()};
     let name = document.getElementById('name');
     let sname = document.getElementById('sname');

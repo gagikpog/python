@@ -2,11 +2,8 @@
 {% block head %}
 
 <!-- <script src="/src/js/query.js"></script> -->
-
-<script src="../src/js/lib/jQuery.js" ></script>
-<script src="../src/js/user-page.js" ></script>
-<link rel="stylesheet" href="../src/style/bootstrap.min.css"> <!-- Бустрап локальный -->
 <link rel="stylesheet" href="../src/style/user-page.css"> <!-- CSS локальный -->
+
 
 
 
@@ -84,9 +81,9 @@
                         </div>
 
                         <div class="block-first__content__right__item__one__elems">
-                            <h5 id="userId">Id</h5>
+                            <h5>Id</h5>
 
-                            <p>{{ user.id }}</p>
+                            <p id="userId">{{ user.id }}</p>
                         </div>
 
                         <div class="block-first__content__right__item__one__elems">
@@ -194,6 +191,7 @@
     </div>
 </section>    
 
+<script src="/src/js/user-page.js" ></script>
 {% endblock %}
 
 

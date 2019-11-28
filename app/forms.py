@@ -8,7 +8,7 @@ from app.utility.utility import check_hash_password
 from flask_login import login_user
 
 class LoginForm(FlaskForm):
-    username = StringField('Телефон или почта', validators=[DataRequired()])
+    username = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
@@ -32,7 +32,7 @@ class RegistrationForm(FlaskForm):
     name = StringField('Имя', validators=[DataRequired()])
     sname = StringField('Фамилия', validators=[DataRequired()])
     pname = StringField('Отчество', validators=[DataRequired()])
-    username = StringField('Телефон или почта', validators=[DataRequired()])
+    username = StringField('Логин', validators=[DataRequired()])
     activity = RadioField('Деятельность',
         choices=[('Студент', 'Студент'), ('Заказчик', 'Заказчик')], default='Студент'
     )
