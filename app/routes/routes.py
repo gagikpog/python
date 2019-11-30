@@ -54,3 +54,15 @@ def tasksList():
 def about_us():
     #Рендрим и возвращаем страницу
     return render_template('aboutUs.html', title='О нас')
+
+# Роут который отдает данные текущего пользователя
+@app.route('/me')
+def me():
+    res = {'status': 'not authenticated'}
+    if current_user.is_authenticated:
+        res['status'] = 'authenticated'
+        keys = ['name', 'sname', 'activity', 'born', 'id', 'mail', 'phone', 'pname', 'rating']
+        user_data = current_user.to_dict()
+        for key in keys:
+            res[key] = user_data[key]
+    return jsonify(res)
