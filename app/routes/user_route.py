@@ -3,7 +3,7 @@ from app import db, api
 from app.forms import LoginForm
 from app.models import User, Bill
 from flask_restful import Resource, reqparse
-
+from flask_login import current_user
 
 class User_api(Resource):
     """
@@ -63,6 +63,9 @@ class User_api(Resource):
             return jsonify(res)
         else:
             #Находим юзера и обновляем данные
+            if not user.id == current_user.id:
+                res = {'status':'Попытка поменять чужие данные'}
+                return jsonify(res)
             if User.query.filter_by(id = user.id).first() != None:
                 User.query.filter_by(id = user.id).update(user.to_dict())
                 db.session.commit()

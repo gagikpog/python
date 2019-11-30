@@ -1,11 +1,200 @@
-{% extends "base.html" %}
 
+{% block head %}
+
+<!-- <script src="/src/js/query.js"></script> -->
+<link rel="stylesheet" href="../src/style/user-page.css"> <!-- CSS локальный -->
+
+
+
+
+
+{% endblock %}
+
+
+{% extends "base.html" %}
 {% block content %}
-    <h1>user page</h1>
+
+
+
+    <!-- <h1>user page</h1>
     {{ user.name }}
     {{ user.sname }}
     {{ user.pname }}
-    {{ user.userID }}
+    {{ user.id }}
     ...
+    <br>
+    <button onclick="updateUser()">Редактировать</button>   
+    <input id="name" class="updateUser__input" type="text" value="{{ user.name }}">
+    <input id="sname" class="updateUser__input" type="text" value="{{ user.sname }}">
+    <input id="pname" class="updateUser__input" type="text" value="{{ user.pname }}"> -->
 
+<section class="block-first">
+    <div class="container">
+        <div class="block-first__content row">
+            <div class="block-first__content__left col-lg-3">
+                <div class="block-first__content__left__avatar-block">
+                    <img class="block-first__content__left__avatar-block__photo" src="../src/img/user-page/avatar.svg" alt="">
+
+                    <div class="block-first__content__left__avatar-block__stars">
+                        <img src="../src/img/user-page/star__full.svg" class="block-first__content__left__avatar-block__stars__star">
+                        <img src="../src/img/user-page/star__full.svg" class="block-first__content__left__avatar-block__stars__star">
+                        <img src="../src/img/user-page/star.svg" class="block-first__content__left__avatar-block__stars__star">
+                    </div>
+
+                    <p>Количество успешных заданий <strong>173</strong></p>
+                </div>
+            </div>
+
+            <div class="block-first__content__right col-lg-9">
+                <div class="block-first__content__right__item">
+                    <input form="user-update__Input" type="submit" id="pen" value="">
+
+                    <div id="user-update__Name" class="block-first__content__right__item__user-Name">
+                        <div id="snameResult">{{ user.sname }}</div> 
+                        <div id="nameResult">{{ user.name }}</div> 
+                        <div id="pnameResult">{{ user.pname }}</div>
+                    </div>
+                    
+                    <form onsubmit="updateUser();return false" id="user-update__Input" class="block-first__content__right__item__user-Input">
+                        <input required placeholder="Фамилия" id="sname" class="updateUser__input" type="text" value="{{ user.sname }}">
+                        <input required placeholder="Имя" id="name" class="updateUser__input" type="text" value="{{ user.name }}">                        
+                        <input required placeholder="Отчество" id="pname" class="updateUser__input" type="text" value="{{ user.pname }}">
+                    </form>
+
+                    <div class="block-first__content__right__item__one">
+                        <div class="block-first__content__right__item__one__elems">
+                            <h5>Статус</h5>
+
+                            <p>Исполнитель</p>
+                        </div>
+
+                        <div class="block-first__content__right__item__one__elems">
+                            <h5>Город</h5>
+
+                            <p>Тюмень</p>
+                        </div>
+
+                        <div class="block-first__content__right__item__one__elems">
+                            <h5>Дата рождения</h5>
+
+                            <p>19.02.1998</p>
+                        </div>
+
+                        <div class="block-first__content__right__item__one__elems">
+                            <h5>Id</h5>
+
+                            <p id="userId">{{ user.id }}</p>
+                        </div>
+
+                        <div class="block-first__content__right__item__one__elems">
+                            <h5>Связь</h5>
+
+                            <p>smiran72@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="block-first__content__right__item__two block-first__content__right__item" id="biography">
+                    <h3>
+                        О себе
+                    </h3>
+
+                    <p>Меня зовут Смирнов Анатолий, мне 19 лет, я студент 2-го курса ТюмГУ, учусь на программиста. Отвественный, отзывчивый, не конфликтный. Готов браться за любую работу. Выполню быстро, качественно! В моей антеке указаны мои контактные данные. Жду звонка!</p>
+                </div>
+
+
+                <div id="totalParent_0" class="block-first__content__right__item__third block-first__content__right__item" id="biography">
+                    <h3>
+                        Достижения
+                    </h3>
+            
+                    <div id="spoilerParent_0" class="block-first__content__right__item__third__elems">
+                        <img title="Выполни/Закажи 7 000 заказов" src="../src/img/user-page/ach/1.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Перейди планку общего заработка в 10 000р." src="../src/img/user-page/ach/2.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Выполни задание после 00:00" src="../src/img/user-page/ach/3.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Выполни заказ меньше чем за час" src="../src/img/user-page/ach/4.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Попади в тройку лучших исполнителей" src="../src/img/user-page/ach/5.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Выполни/Закажи 7 000 заказов" src="../src/img/user-page/ach/1.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Перейди планку общего заработка в 10 000р." src="../src/img/user-page/ach/2.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Выполни задание после 00:00" src="../src/img/user-page/ach/3.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Выполни заказ меньше чем за час" src="../src/img/user-page/ach/4.svg" class="block-first__content__right__item__third__elems__elem "> 
+            
+                        <img title="Попади в тройку лучших исполнителей" src="../src/img/user-page/ach/5.svg" class="block-first__content__right__item__third__elems__elem ">
+                    </div>
+            
+                    <a id="buttonMore_0" onclick="spoilerShowZero()">Показать еще</a>
+                </div>
+
+
+                <div id="totalParent_1" class="block-first__content__right__item__fourth block-first__content__right__item" id="biography">
+                    <h3>
+                        Выполненые задачи
+                    </h3>
+            
+                    <div id="spoilerParent_1" class="block-first__content__right__item__fourth__elems">
+                        <div class="block-first__content__right__item__fourth__elems__elem ">
+                            <h5>Газон</h5>
+                
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi architecto quaerat corporis error quia doloribus ducimus cupiditate, expedita aspernatur qui quas ipsa, odit voluptatem similique quae maxime. Eligendi, perferendis eius.</p>
+                
+                            <a href="#">Открыть запись</a>
+                        </div>
+            
+                        <div class="block-first__content__right__item__fourth__elems__elem ">
+                            <h5>Газон</h5>
+                
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi architecto quaerat corporis error quia doloribus ducimus cupiditate, expedita aspernatur qui quas ipsa, odit voluptatem similique quae maxime. Eligendi, perferendis eius.</p>
+                
+                            <a href="#">Открыть запись</a>
+                        </div>
+            
+                        <div class="block-first__content__right__item__fourth__elems__elem ">
+                            <h5>Газон</h5>
+                
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi architecto quaerat corporis error quia doloribus ducimus cupiditate, expedita aspernatur qui quas ipsa, odit voluptatem similique quae maxime. Eligendi, perferendis eius.</p>
+                
+                            <a href="#">Открыть запись</a>
+                        </div>
+            
+            
+                        <div class="block-first__content__right__item__fourth__elems__elem ">
+                            <h5>Газон</h5>
+                
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi architecto quaerat corporis error quia doloribus ducimus cupiditate, expedita aspernatur qui quas ipsa, odit voluptatem similique quae maxime. Eligendi, perferendis eius.</p>
+                
+                            <a href="#">Открыть запись</a>
+                        </div>
+            
+                        <div class="block-first__content__right__item__fourth__elems__elem ">
+                            <h5>Газон</h5>
+                
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi architecto quaerat corporis error quia doloribus ducimus cupiditate, expedita aspernatur qui quas ipsa, odit voluptatem similique quae maxime. Eligendi, perferendis eius.</p>
+                
+                            <a href="#">Открыть запись</a>
+                        </div>
+                    </div>
+            
+                    <a id="buttonMore_1" onclick="spoilerShowOne()">Показать еще</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>    
+
+<script src="/src/js/user-page.js" ></script>
 {% endblock %}
+
+
+
+
+

@@ -33,7 +33,7 @@ class RegistrationForm(FlaskForm):
     name = StringField('Имя', validators=[DataRequired()])
     sname = StringField('Фамилия', validators=[DataRequired()])
     pname = StringField('Отчество', validators=[DataRequired()])
-    username = StringField('Телефон или почта', validators=[DataRequired()])
+    username = StringField('Логин', validators=[DataRequired()])
     activity = RadioField('Деятельность',
         choices=[('Студент', 'Студент'), ('Заказчик', 'Заказчик')], default='Студент'
     )

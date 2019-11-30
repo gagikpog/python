@@ -1,0 +1,304 @@
+header {
+  background: rgba(0, 0, 0, 0);
+  position: relative;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url(fonts/Montserrat-Medium.ttf);
+}
+@font-face {
+  font-family: 'Montserrat-bold';
+  src: url(fonts/Montserrat-Bold.ttf);
+}
+* {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+body {
+  background: linear-gradient(295.4deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.container {
+  max-width: 1260px;
+  margin: 0 auto;
+  position: relative;
+}
+.block-none {
+  display: none;
+}
+.block-opacity {
+  opacity: 0;
+}
+.checkBlock {
+  display: block;
+}
+.checkBlock > * {
+  font-family: 'Montserrat-Medium';
+  color: #FEFEFE;
+  font-weight: 100;
+}
+.block-autoris {
+  min-height: 142vh;
+}
+.block-autoris__content {
+  width: 100%;
+  margin: 0 auto;
+  top: calc(50vh - 250px);
+  text-align: center;
+  position: absolute;
+}
+.block-autoris__content__title {
+  height: 280px;
+}
+.block-autoris__content__title h1 {
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 140px;
+  position: relative;
+  text-transform: uppercase;
+  color: #FEFEFE;
+  font-weight: 900;
+}
+.block-autoris__content__title h1:after {
+  position: absolute;
+  right: 0;
+  bottom: -110px;
+  left: 0;
+  display: block;
+  content: 'STUDER';
+  transform: scaleY(-1);
+  opacity: 15%;
+}
+.block-autoris__content__variants {
+  height: 30px;
+  margin: 50px 0;
+  color: #FEFEFE;
+}
+.block-autoris__content__variants .button-bordered {
+  color: #FEFEFE;
+}
+.block-autoris__content__variants .button-bordered::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #FEFEFE;
+  content: "";
+  transition: width 0.3s ease-out;
+}
+.block-autoris__content__variants button {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  outline: none;
+  color: gray;
+  font-weight: 100;
+  position: relative;
+  transition: 0.3s ease;
+}
+.block-autoris__content__variants button:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #FEFEFE;
+  content: "";
+  transition: width 0.3s ease-out;
+}
+.block-autoris__content__variants button:hover {
+  color: #FEFEFE;
+}
+.block-autoris__content__variants button:hover:after,
+.block-autoris__content__variants button:focus:after {
+  width: 100%;
+}
+.block-autoris__content__container-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 800px;
+  overflow-x: hidden;
+}
+.block-autoris__content__container-form__content-form {
+  position: absolute;
+  width: 2000px;
+  display: flex;
+  justify-content: space-between;
+  left: 11%;
+  transition: 0.5s ease;
+}
+.block-autoris__content__container-form__content-form__form-register {
+  justify-content: center;
+  display: flex;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child {
+  color: #FEFEFE;
+  font-family: "Montserrat";
+  font-weight: 100;
+  border: none;
+  display: flex;
+  justify-content: center;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0);
+  /*sssssssssssss*/
+  /*sssssssssssssssssssssssssss*/
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child:hover {
+  background: rgba(255, 255, 255, 0);
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child .btn {
+  display: inline-block;
+  padding: 0px;
+  height: 35px;
+  position: relative;
+  text-align: center;
+  transition: background 600ms ease, color 600ms ease;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle {
+  display: none;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle + label {
+  cursor: pointer;
+  min-width: 80px;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle + label:hover {
+  background: none;
+  color: #1A1A1A;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle + label:after {
+  background: #FEFEFE;
+  content: "";
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1);
+  width: 90%;
+  z-index: -1;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle.toggle-left + label {
+  border-right: 0;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle.toggle-left + label:after {
+  left: 142%;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle.toggle-right + label {
+  margin-left: 0;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle.toggle-right + label:after {
+  left: -99%;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle:checked + label {
+  cursor: default;
+  color: #a84778;
+  transition: color 200ms;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle:checked + label:after {
+  left: 0;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child > * {
+  color: #FEFEFE;
+  font-size: 22px;
+  margin: 0 10px;
+}
+.block-autoris__content__container-form__content-form__form-register > *:first-child > *:first-child {
+  margin: 0 100px 0 0;
+}
+.block-autoris__content__container-form__content-form > * {
+  /*формы*/
+  transition: 0.2s ease;
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.block-autoris__content__container-form__content-form > * label {
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+  transition: 0.5s ease;
+  cursor: pointer;
+  opacity: 0.4;
+}
+.block-autoris__content__container-form__content-form > * label:hover {
+  opacity: 0.8;
+}
+.block-autoris__content__container-form__content-form > * input {
+  /*Элеметы каждой формы*/
+  width: 100%;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  border: none;
+  border: 2px solid #FEFEFE;
+  margin: 20px 0;
+  padding: 15px 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  color: #1A1A1A;
+  font-size: 16px;
+  font-weight: 100;
+  transition: 0.5s ease;
+}
+.block-autoris__content__container-form__content-form > * input[type=radio] {
+  margin: 0 10px;
+  height: 35px;
+  width: 35px;
+  display: none;
+}
+.block-autoris__content__container-form__content-form > * input[type="radio"]:checked + label {
+  border-bottom: 2px solid #FEFEFE;
+  color: #FEFEFE;
+  opacity: 1;
+}
+.block-autoris__content__container-form__content-form > * input[type=checkbox] {
+  margin: 0 10px;
+  height: 35px;
+  width: 35px;
+  display: none;
+}
+.block-autoris__content__container-form__content-form > * input[type="checkbox"]:checked + label {
+  border-bottom: 2px solid #FEFEFE;
+  opacity: 1;
+}
+.block-autoris__content__container-form__content-form > * input:last-child {
+  color: #FEFEFE;
+}
+.block-autoris__content__container-form__content-form > * input:last-child:hover {
+  color: black;
+  background: rgba(255, 255, 255, 0.2);
+}
+.block-autoris__content__container-form__content-form > * input::placeholder {
+  color: rgba(254, 254, 254, 0.5);
+  font-size: 16px;
+  font-weight: 100;
+}
+.block-autoris__content__container-form__content-form > * input:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.block-autoris__content__container-form__content-form > * input:focus {
+  color: #1A1A1A;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid #1A1A1A;
+}
+.block-autoris__content__container-form__content-form > * input:active {
+  color: #1A1A1A;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid #1A1A1A;
+}

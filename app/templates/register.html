@@ -7,59 +7,59 @@
 {% block content %}
 <h1>Регистрация</h1>
 <form action="" method="post">
-    {{ form.hidden_tag() }}
+    {{ registrForm.hidden_tag() }}
     <p>
-        {{ form.sname.label }}<br>
-        {{ form.sname(size=32) }}<br>
-        {% for error in form.sname.errors %}
+        {{ registrForm.sname.label }}<br>
+        {{ registrForm.sname(size=32) }}<br>
+        {% for error in registrForm.sname.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.name.label }}<br>
-        {{ form.name(size=32) }}<br>
-        {% for error in form.name.errors %}
+        {{ registrForm.name.label }}<br>
+        {{ registrForm.name(size=32) }}<br>
+        {% for error in registrForm.name.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.pname.label }}<br>
-        {{ form.pname(size=32) }}<br>
-        {% for error in form.pname.errors %}
+        {{ registrForm.pname.label }}<br>
+        {{ registrForm.pname(size=32) }}<br>
+        {% for error in registrForm.pname.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.username.label }}<br>
-        {{ form.username(size=32) }}<br>
-        {% for error in form.username.errors %}
+        {{ registrForm.username.label }}<br>
+        {{ registrForm.username(size=32) }}<br>
+        {% for error in registrForm.username.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.activity.label }}
-        {% for subfield in form.activity %}
+        {{ registrForm.activity.label }}
+        {% for subfield in registrForm.activity %}
             {{ subfield }}
             {{ subfield.label }}
         {% endfor %}
     </p>
     
     <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}<br>
-        {% for error in form.password.errors %}
+        {{ registrForm.password.label }}<br>
+        {{ registrForm.password(size=32) }}<br>
+        {% for error in registrForm.password.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.password2.label }}<br>
-        {{ form.password2(size=32) }}<br>
-        {% for error in form.password2.errors %}
+        {{ registrForm.password2.label }}<br>
+        {{ registrForm.password2(size=32) }}<br>
+        {% for error in registrForm.password2.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.submit() }} 
+        {{ registrForm.submit() }} 
         <a href="{{ url_for('login') }}">Вход</a>
     </p>
 </form>

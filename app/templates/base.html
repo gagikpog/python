@@ -1,43 +1,81 @@
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/src/style/main.css">
-        <meta charset="UTF-8" />
-        {% if title %}
-        <title>{{ title }} - Studer</title>
-        {% else %}
-        <title>Studer</title>
-        {% endif %}
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        <header>
-            <div class="container">
-                <div class="header-block">
-                    <ol class="header-block__nav">
-                        <li><a href="{{ url_for('index') }}">Studer</a></li>
-                        <li><a href="{{ url_for('about_us') }}">О нас</a></li>
-                        <li><a href="{{ url_for('userPage') }}">Личный кабинет</a></li>
-                        <li><a href="{{ url_for('tasksList') }}">Площадка</a></li>
+<head>
+    <link rel="stylesheet" type="text/css" href="/src/style/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/src/style/main.css">
+    <meta charset="UTF-8" />
+    {% if title %}
+    <title>{{ title }} - Studer</title>
+    {% else %}
+    <title>Studer</title>
+    {% endif %}
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="{{ url_for('index') }}">studer</a>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="{{ url_for('about_us') }}">О нас</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a  href="{{ url_for('tasksList') }}">Площадка</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
                         {% if current_user.is_authenticated %}
-                            <li><a href="{{ url_for('logout') }}">Выход</a></li>
+                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/src/img/user-page/avatar.svg" alt="">    
+                                <p id="hereUserName">Name</p>
+                            </a>
                         {% else %}
-                            <!-- <li><a href="{{ url_for('login') }}">Вход</a></li> -->
+                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <p>Присоединиться</p>
+                            </a>
                         {% endif %}
-                        
-                    </ol>
-                </div>
+
+                        {% if current_user.is_authenticated %}   
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">                         
+                        <a class="dropdown-item" href="{{ url_for('userPage') }}">Личный кабинет</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Выход</a>
+                        </div>
+                        {% else %}
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">                         
+                        <a class="dropdown-item" href="{{ url_for('login') }}">Авторизация</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('register') }}">Регистрация</a>
+                        </div>
+                        {% endif %}
+
+                    </li>
+                </ul>
             </div>
-        </header>
+        </nav>
+    </div>
+</header>
 
-        <main>
-            {% block content %}{% endblock %}
-        </main>
+<main>
+    {% block content %}{% endblock %}
+</main>
 
 
 
-    <footer>
-        <strong>STUDER</strong>
-    </footer>
+<footer>
+    <strong>STUDER</strong>
+</footer>
 
-    </body>
+</body>
+
+<script src="/src/js/lib/bootstrap.min.js"></script>
+<script src="/src/js/lib/bootstrap.bundle.min.js"></script>
+<script src="/src/js/lib/jQuery.js" ></script>
+
+
 </html>
