@@ -22,3 +22,6 @@ function a(method) {
    }
 
 }
+
+let url = new URL(window.location.href);
+a(url.searchParams.get("page") === 'register')

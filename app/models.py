@@ -37,7 +37,6 @@ class User(db.Model, mixin, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     # roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
-    bills = db.relationship('Bill', backref='author', lazy='dynamic')
     active = db.Column(db.Boolean())
 
     def __repr__(self):
@@ -52,8 +51,8 @@ class Bill(db.Model, mixin):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     title = db.Column(db.String(64))
-    deadline = db.Column(db.DateTime)
-    summ = db.Column(db.Integer)
+    deadline = db.Column(db.String(12))
+    sum = db.Column(db.Integer)
     description = db.Column(db.String(512))
     category = db.Column(db.Integer)
     status = db.Column(db.String(32))

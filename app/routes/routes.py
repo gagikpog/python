@@ -4,6 +4,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, Bill
+import datetime
+from app.utility.utility import addMonth
 
 
 @app.route('/')
@@ -66,3 +68,12 @@ def me():
         for key in keys:
             res[key] = user_data[key]
     return jsonify(res)
+
+@app.route('/add-task')
+@login_required
+def add_task():
+    if current_user.activity == 'Студент':
+        abort(403)
+    minDate = datetime.date.today().strftime('%Y-%m-%d')
+    maxDate = addMonth(datetime.date.today(), 2).strftime('%Y-%m-%d')
+    return render_template('addTask.html', title='Задачи', minDate=minDate, maxDate=maxDate)

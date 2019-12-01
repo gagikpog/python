@@ -6,33 +6,6 @@
 
 
 {% block content %}
-<!-- <h1>Вход</h1>
-<form action="" method="post" novalidate>
-    {{ loginForm.hidden_tag() }}
-    <p>
-        <span class="asdasd">
-            {{ loginForm.username.label }}
-
-        </span>
-        {{ loginForm.username(size=32) }}
-        {% for error in loginForm.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ loginForm.password.label }} required
-        {{ loginForm.password(size=32) }}
-        {% for error in loginForm.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    /*****************************************************
-    <p>{{ loginForm.remember_me() }} {{ loginForm.remember_me.label }}</p>
-    <p>
-        {{ loginForm.submit() }}
-        <a href="{{ url_for('register') }}">Регистрация</a>
-    </p>
-</form> -->
 
 <section class="block-autoris">
     <div class="container">
@@ -40,7 +13,7 @@
             <div class="block-autoris__content__title">
                 <h1>studer</h1>
             </div>
-            
+
             <div class="block-autoris__content__variants">
                 <button id="btnAutoris" onclick="a(false)" class="button-bordered">Войти</button>
 
@@ -70,26 +43,7 @@
 
                         {{ loginForm.submit() }}
                     </form>
-    
 
-
-
-                    <!-- <form id="register" class="block-autoris__content__container-form__content-form__form-register">
-                        <div>
-                            <label  for="activity">Деятельность:</label>
-                            <input id="activity-0" class="toggle toggle-left" name="activity" value="false" type="radio" checked>
-                            <label for="activity-0" class="btn">Студент</label>
-                            <input id="activity-1" class="toggle toggle-right" name="activity" value="true" type="radio">
-                            <label for="activity-1" class="btn">Заказчик</label>
-                        </div>
-                        <input required name="login" type="text" placeholder="Фамилия"> 
-                        <input required name="login" type="text" placeholder="Имя"> 
-                        <input required name="login" type="text" placeholder="Отчество"> 
-                        <input required name="login" type="text" placeholder="Номер телефона или Почта"> 
-                        <input required name="pass" type="password" placeholder="Пароль">                     
-                        <input required name="pass" type="password" placeholder="Еще раз введите Пароль">               
-                        <input  type="submit" value="Зарегистрироваться">
-                    </form> -->
                     <form id="register" class="block-autoris__content__container-form__content-form__form-register" action="" method="post">
                             {{ registrForm.hidden_tag() }}
                             <div class="row checkBlock ">
@@ -98,39 +52,38 @@
                                         {{ subfield.label }}
                                     {% endfor %}
                             </div>
-                            
-                        
+
+
                             {{ registrForm.sname(size=32, placeholder='Фамилия') }}
                             {% for error in registrForm.sname.errors %}
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}
-                        
-                    
+
+
                             {{ registrForm.name(size=32, placeholder='Имя') }}
                             {% for error in registrForm.name.errors %}
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}
-                        
-                    
+
+
                             {{ registrForm.pname(size=32, placeholder='Отчество') }}
                             {% for error in registrForm.pname.errors %}
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}
-                        
-                    
+
+
                             {{ registrForm.username(size=32, placeholder='Логин') }}
                             {% for error in registrForm.username.errors %}
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}
-                        
-                        
-                    
+
+
                             {{ registrForm.password(size=32, placeholder='Пароль') }}
                             {% for error in registrForm.password.errors %}
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}
-                        
-                    
+
+
                             {{ registrForm.password2(size=32, placeholder='Повторите пароль') }}
                             {% for error in registrForm.password2.errors %}
                             <span style="color: red;">{{ error }}</span>
@@ -140,12 +93,10 @@
                         </form>
                 </div>
             </div>
-            
-
 
         </div>
     </div>
-</section>  
+</section>
 
 <script src="/src/js/register.js"></script>
 

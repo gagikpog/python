@@ -11,9 +11,6 @@ function updateUsedData() {
         contentType: "application/json",
         success: function(userData) {
             currentUserData = userData;
-            if (currentUserData.status === 'authenticated') {
-                $('#hereUserName')[0].textContent = currentUserData.name;
-            }
         }
     });
 }
