@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head%}
+    <link rel="stylesheet" href="/src/style/tasks.css">
+    <script src="/src/js/addTask.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Задача</h1>
+
+    <label for="title">Название</label>
+    <input id="title" name="title" type="text">
+
+    <label for="description">Описание</label>
+    <textarea id="description" name="description" id="" cols="30" rows="5"></textarea>
+
+    <label for="sum">сумма</label>
+    <input id="sum" name="sum" type="text">
+
+    <label for="deadline">Срок до</label>
+
+    <input type="date" id="deadline" name="deadline"
+            value="{{ minDate }}"
+            min="{{ minDate }}" max="{{ maxDate }}">
+
+    <button onclick="save()"> Сохранить </button>
+
+
+{% endblock %}
