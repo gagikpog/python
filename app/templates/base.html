@@ -13,7 +13,7 @@
 <body>
 
 
-<header>
+<header id="header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="{{ url_for('index') }}">studer</a>
@@ -72,6 +72,12 @@
 </footer>
 
 </body>
+
+<script type="text/javascript">
+    $(document).scroll(function(){
+        $('header').toggleClass('scrolled', $(this).scrollTop() > $('header').height());
+    });
+</script>
 
 <script src="/src/js/lib/bootstrap.min.js"></script>
 <script src="/src/js/lib/bootstrap.bundle.min.js"></script>

@@ -63,8 +63,8 @@ class User_api(Resource):
             return jsonify(res)
         else:
             #Находим юзера и обновляем данные
-            if not user.id == current_user.id:
-                res = {'status':'Попытка поменять чужие данные'}
+            if not int(user.id) == int(current_user.id):
+                res = {'status':"Попытка обновить чужие данные!"}
                 return jsonify(res)
             if User.query.filter_by(id = user.id).first() != None:
                 User.query.filter_by(id = user.id).update(user.to_dict())
