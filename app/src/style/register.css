@@ -3,26 +3,27 @@ header {
   position: relative;
 }
 @font-face {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   src: url(fonts/Montserrat-Medium.ttf);
 }
 @font-face {
-  font-family: 'Montserrat-bold';
+  font-family: "Montserrat-bold";
   src: url(fonts/Montserrat-Bold.ttf);
 }
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-weight: 600;
 }
 body {
-  background: linear-gradient(295.4deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
+  background: linear-gradient(295.4deg, #9c27b0 16.01%, #673ab7 65.27%, #3f51b5 122.27%);
   background-size: 400% 400%;
   animation: gradientBG 20s ease infinite;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
 }
 @keyframes gradientBG {
   0% {
@@ -50,17 +51,21 @@ body {
   display: block;
 }
 .checkBlock > * {
-  font-family: 'Montserrat-Medium';
-  color: #FEFEFE;
+  font-family: "Montserrat-Medium";
+  color: #fefefe;
   font-weight: 100;
 }
 .block-autoris {
-  min-height: 142vh;
+  min-height: 1500px;
 }
 .block-autoris__content {
+  padding-top: 150px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   width: 100%;
   margin: 0 auto;
-  top: calc(50vh - 250px);
   text-align: center;
   position: absolute;
 }
@@ -68,11 +73,11 @@ body {
   height: 280px;
 }
 .block-autoris__content__title h1 {
-  font-family: 'Montserrat-Bold', sans-serif;
+  font-family: "Montserrat-Bold", sans-serif;
   font-size: 140px;
   position: relative;
   text-transform: uppercase;
-  color: #FEFEFE;
+  color: #fefefe;
   font-weight: 900;
 }
 .block-autoris__content__title h1:after {
@@ -81,17 +86,17 @@ body {
   bottom: -110px;
   left: 0;
   display: block;
-  content: 'STUDER';
+  content: "STUDER";
   transform: scaleY(-1);
   opacity: 15%;
 }
 .block-autoris__content__variants {
   height: 30px;
   margin: 50px 0;
-  color: #FEFEFE;
+  color: #fefefe;
 }
 .block-autoris__content__variants .button-bordered {
-  color: #FEFEFE;
+  color: #fefefe;
 }
 .block-autoris__content__variants .button-bordered::after {
   display: block;
@@ -99,7 +104,7 @@ body {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #FEFEFE;
+  background-color: #fefefe;
   content: "";
   transition: width 0.3s ease-out;
 }
@@ -118,12 +123,12 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #FEFEFE;
+  background-color: #fefefe;
   content: "";
   transition: width 0.3s ease-out;
 }
 .block-autoris__content__variants button:hover {
-  color: #FEFEFE;
+  color: #fefefe;
 }
 .block-autoris__content__variants button:hover:after,
 .block-autoris__content__variants button:focus:after {
@@ -150,7 +155,7 @@ body {
   display: flex;
 }
 .block-autoris__content__container-form__content-form__form-register > *:first-child {
-  color: #FEFEFE;
+  color: #fefefe;
   font-family: "Montserrat";
   font-weight: 100;
   border: none;
@@ -181,10 +186,10 @@ body {
 }
 .block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle + label:hover {
   background: none;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 .block-autoris__content__container-form__content-form__form-register > *:first-child input[type="radio"].toggle + label:after {
-  background: #FEFEFE;
+  background: #fefefe;
   content: "";
   height: 100%;
   position: absolute;
@@ -214,7 +219,7 @@ body {
   left: 0;
 }
 .block-autoris__content__container-form__content-form__form-register > *:first-child > * {
-  color: #FEFEFE;
+  color: #fefefe;
   font-size: 22px;
   margin: 0 10px;
 }
@@ -245,40 +250,40 @@ body {
   background: rgba(0, 0, 0, 0);
   border-radius: 10px;
   border: none;
-  border: 2px solid #FEFEFE;
+  border: 2px solid #fefefe;
   margin: 20px 0;
   padding: 15px 40px;
   overflow: hidden;
   text-overflow: ellipsis;
   outline: none;
-  color: #1A1A1A;
+  color: #1a1a1a;
   font-size: 16px;
   font-weight: 100;
   transition: 0.5s ease;
 }
-.block-autoris__content__container-form__content-form > * input[type=radio] {
+.block-autoris__content__container-form__content-form > * input[type="radio"] {
   margin: 0 10px;
   height: 35px;
   width: 35px;
   display: none;
 }
 .block-autoris__content__container-form__content-form > * input[type="radio"]:checked + label {
-  border-bottom: 2px solid #FEFEFE;
-  color: #FEFEFE;
+  border-bottom: 2px solid #fefefe;
+  color: #fefefe;
   opacity: 1;
 }
-.block-autoris__content__container-form__content-form > * input[type=checkbox] {
+.block-autoris__content__container-form__content-form > * input[type="checkbox"] {
   margin: 0 10px;
   height: 35px;
   width: 35px;
   display: none;
 }
 .block-autoris__content__container-form__content-form > * input[type="checkbox"]:checked + label {
-  border-bottom: 2px solid #FEFEFE;
+  border-bottom: 2px solid #fefefe;
   opacity: 1;
 }
 .block-autoris__content__container-form__content-form > * input:last-child {
-  color: #FEFEFE;
+  color: #fefefe;
 }
 .block-autoris__content__container-form__content-form > * input:last-child:hover {
   color: black;
@@ -293,12 +298,12 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 .block-autoris__content__container-form__content-form > * input:focus {
-  color: #1A1A1A;
+  color: #1a1a1a;
   background: rgba(255, 255, 255, 0.3);
-  border: 2px solid #1A1A1A;
+  border: 2px solid #1a1a1a;
 }
 .block-autoris__content__container-form__content-form > * input:active {
-  color: #1A1A1A;
+  color: #1a1a1a;
   background: rgba(255, 255, 255, 0.3);
-  border: 2px solid #1A1A1A;
+  border: 2px solid #1a1a1a;
 }

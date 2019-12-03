@@ -244,7 +244,6 @@
   margin: 0 auto;
 }
 
-
 .scrolled {
   background: linear-gradient(
     352.23deg,
@@ -504,75 +503,52 @@ section {
 
 .block-second {
   &__content {
-    & h2 {
+    width: 100%;
+    text-align: center;
+    margin-top: 300px;
+
+    & a {
       font-family: "Montserrat-bold";
-      font-size: 80px;
-      text-align: center;
-      padding: 75px 0 50px;
+      font-size: 50px;
       mix-blend-mode: difference;
       .font-gradient();
       .font-media(100px;992px);
       .font-media(25px;576px);
-    }
+      width: 100%;
+      position: relative;
+      transition: 1s ease;
+      padding: 0;
+      margin: 0;
 
-    &__link {
-      text-align: center;
-      color: #1a1a1a;
-      font-size: 25px;
-
-      & a {
-        transition: 0.5s ease;
-        color: #1a1a1a;
-
-        &:hover {
-          color: lighten(#1a1a1a, 20%);
-        }
-      }
-    }
-
-    &__main-form {
-      background: rgba(0, 0, 0, 0);
-
-      & input {
-        border: 2px solid #623eb7;
-        min-height: 50px;
-        margin: 40px 0;
-        padding: 15px 40px;
-        border-radius: 10px;
-        font-size: 16px;
-
-        &:last-child {
-          background: rgba(0, 0, 0, 0);
-          transition: 0.5s ease;
-
-          &:hover {
-            color: #fefefe;
-            background: #372975;
-          }
-        }
+      &:after {
+        display: block;
+        position: absolute;
+        left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+        width: 0; /*задаём длинну линии до наведения курсора*/
+        height: 50px; /*задаём ширину линии*/
+        background-color: #673ab7; /*задаём цвет линии*/
+        content: "";
+        mix-blend-mode: difference;
+        transition: width 0.5s ease-out; /*задаём время анимации*/
       }
 
-      & a {
-        margin: 55px 0;
-        color: #623eb7;
-        transition: 0.5s;
+      &::before {
+        display: block;
+        position: absolute;
+        mix-blend-mode: difference;
+        right: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+        width: 0; /*задаём длинну линии до наведения курсора*/
+        height: 70px; /*задаём ширину линии*/
+        background-color: #673ab7; /*задаём цвет линии*/
+        content: "";
+        transition: width 0.5s ease-out; /*задаём время анимации*/
+      }
 
-        @media (max-width: 576px) {
-          & {
-            border: 2px solid #623eb7;
-            border-radius: 10px;
-            text-align: center;
-            margin: 0px auto;
-            padding: 0;
-            width: 100%;
-            padding: 15px 40px;
-            min-height: 50px;
-          }
-        }
-        &:hover {
-          color: darken(#623eb7, 20%);
-          border: none;
-        }
+      &:hover:after,
+      &:focus:after,
+      &:hover:before,
+      &:focus:before {
+        width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
       }
     }
   }

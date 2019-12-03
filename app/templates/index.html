@@ -1,7 +1,7 @@
 ﻿{% extends "base.html" %} {% block head %}
 <link rel="stylesheet" href="/src/style/index.css" />
 {% endblock %} {% block content %}
-<section class="block-banner">
+<section id="start" class="block-banner">
   <div class="decoration-BackCircle"></div>
 
   <img src="../src/img/index/+.svg" alt="" class="decoration-ball" />
@@ -22,7 +22,7 @@
           ваши задачи
         </p>
 
-        <a href="#">Присоединиться</a>
+        <a href="login?page=register">Присоединиться</a>
       </div>
 
       <div class="col-lg-6 .col-md-12">
@@ -109,8 +109,7 @@
           <p class=".col-md-12">
             Мы создаем благоприятные и честные условия вашего сотрудничества,
             введя систему оценок и рейтинга для исключения недобросовестных
-            пользователей и поощрения лучших из лучших, чтобы все получили
-            желаемое.
+            пользователей и поощрения лучших из лучших, чтобы все были довольны.
           </p>
         </div>
       </div>
@@ -128,21 +127,7 @@
     <img src="../src/img/index/grad_3.svg" alt="" class="decoration-ball" />
 
     <div class="block-second__content">
-      <h2>ПРИСОЕДИНЯЙСЯ К НАМ УЖЕ СЕЙЧАС!</h2>
-
-      <div class="block-second__content__link">
-        <a href="#">Войти</a> / <a href="#">Зарегистрироваться</a>
-      </div>
-
-      <form class=" block-second__content__main-form row" action="">
-        <input class="col-lg-12" type="text" placeholder="Логин" />
-
-        <input class="col-lg-12" type="text" placeholder="Пароль" />
-
-        <a class="col-lg-6 col-md-12" href="#">Забыли пароль?</a>
-
-        <input class="col-lg-6 col-md-12" type="submit" value="Войти" />
-      </form>
+      <a href="#start">ПРИСОЕДИНЯЙСЯ К НАМ УЖЕ СЕЙЧАС!</a>
     </div>
   </div>
 </section>

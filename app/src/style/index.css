@@ -494,19 +494,27 @@ section:nth-child(1) {
     width: 100%;
   }
 }
-.block-second__content h2 {
-  font-family: "Montserrat-bold";
-  font-size: 80px;
+.block-second__content {
+  width: 100%;
   text-align: center;
-  padding: 75px 0 50px;
+  margin-top: 300px;
+}
+.block-second__content a {
+  font-family: "Montserrat-bold";
+  font-size: 50px;
   mix-blend-mode: difference;
   background: linear-gradient(295.4deg, #9c27b0 16.01%, #673ab7 65.27%, #3f51b5 122.27%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #0b2349;
+  width: 100%;
+  position: relative;
+  transition: 1s ease;
+  padding: 0;
+  margin: 0;
 }
 @media (max-width: 992px) {
-  .block-second__content h2 {
+  .block-second__content a {
     font-size: 100px;
     text-align: center;
     margin: 0 auto;
@@ -514,62 +522,49 @@ section:nth-child(1) {
   }
 }
 @media (max-width: 576px) {
-  .block-second__content h2 {
+  .block-second__content a {
     font-size: 25px;
     text-align: center;
     margin: 0 auto;
     width: 100%;
   }
 }
-.block-second__content__link {
-  text-align: center;
-  color: #1a1a1a;
-  font-size: 25px;
+.block-second__content a:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0;
+  /*задаём длинну линии до наведения курсора*/
+  height: 50px;
+  /*задаём ширину линии*/
+  background-color: #673ab7;
+  /*задаём цвет линии*/
+  content: "";
+  mix-blend-mode: difference;
+  transition: width 0.5s ease-out;
+  /*задаём время анимации*/
 }
-.block-second__content__link a {
-  transition: 0.5s ease;
-  color: #1a1a1a;
+.block-second__content a::before {
+  display: block;
+  position: absolute;
+  mix-blend-mode: difference;
+  right: 0;
+  /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0;
+  /*задаём длинну линии до наведения курсора*/
+  height: 70px;
+  /*задаём ширину линии*/
+  background-color: #673ab7;
+  /*задаём цвет линии*/
+  content: "";
+  transition: width 0.5s ease-out;
+  /*задаём время анимации*/
 }
-.block-second__content__link a:hover {
-  color: #4d4d4d;
-}
-.block-second__content__main-form {
-  background: rgba(0, 0, 0, 0);
-}
-.block-second__content__main-form input {
-  border: 2px solid #623eb7;
-  min-height: 50px;
-  margin: 40px 0;
-  padding: 15px 40px;
-  border-radius: 10px;
-  font-size: 16px;
-}
-.block-second__content__main-form input:last-child {
-  background: rgba(0, 0, 0, 0);
-  transition: 0.5s ease;
-}
-.block-second__content__main-form input:last-child:hover {
-  color: #fefefe;
-  background: #372975;
-}
-.block-second__content__main-form a {
-  margin: 55px 0;
-  color: #623eb7;
-  transition: 0.5s;
-}
-@media (max-width: 576px) {
-  .block-second__content__main-form a {
-    border: 2px solid #623eb7;
-    border-radius: 10px;
-    text-align: center;
-    margin: 0px auto;
-    padding: 0;
-    width: 100%;
-    padding: 15px 40px;
-    min-height: 50px;
-  }
-}
-.block-second__content__main-form a:hover {
-  color: #39246b;
-  border: none;
+.block-second__content a:hover:after,
+.block-second__content a:focus:after,
+.block-second__content a:hover:before,
+.block-second__content a:focus:before {
+  width: 100%;
+  /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
 }
