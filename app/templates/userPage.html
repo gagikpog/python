@@ -14,20 +14,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-
-    <!-- <h1>user page</h1>
-    {{ user.name }}
-    {{ user.sname }}
-    {{ user.pname }}
-    {{ user.id }}
-    ...
-    <br>
-    <button onclick="updateUser()">Редактировать</button>   
-    <input id="name" class="updateUser__input" type="text" value="{{ user.name }}">
-    <input id="sname" class="updateUser__input" type="text" value="{{ user.sname }}">
-    <input id="pname" class="updateUser__input" type="text" value="{{ user.pname }}"> -->
-
 <section class="block-first">
     <div class="container">
         <div class="block-first__content row">
@@ -65,7 +51,7 @@
                         <div class="block-first__content__right__item__one__elems">
                             <h5>Статус</h5>
 
-                            <p>Исполнитель</p>
+                            <p>{{ user.activity }}</p>
                         </div>
 
                         <div class="block-first__content__right__item__one__elems">
@@ -85,12 +71,21 @@
 
                             <p id="userId">{{ user.id }}</p>
                         </div>
-
+                        {% if user.mail %}
                         <div class="block-first__content__right__item__one__elems">
                             <h5>Связь</h5>
 
-                            <p>smiran72@gmail.com</p>
+                            <p>{{ user.mail }}</p>
                         </div>
+                        {% else %}
+                            {% if user.phone %}
+                            <div class="block-first__content__right__item__one__elems">
+                                <h5>Связь</h5>
+                                <p>{{ user.phone }}</p>
+                            </div>
+                            {% endif %}
+
+                        {% endif %}
                     </div>
                 </div>
 

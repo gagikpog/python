@@ -21,7 +21,7 @@ def src(path):
 @app.errorhandler(404)
 def not_found(error):
     #Реднрим и возвращаем страницу "404 Not found"
-    return render_template('notFind.html')
+    return render_template('notFound.html')
 
 @app.route('/query')
 def query():
@@ -69,11 +69,21 @@ def me():
             res[key] = user_data[key]
     return jsonify(res)
 
-@app.route('/add-task')
+@app.route('/task-page/<id>')
+@app.route('/task-page/')
+@app.route('/task-page')
 @login_required
-def add_task():
+def task_page(id=None):
     if current_user.activity == 'Студент':
         abort(403)
     minDate = datetime.date.today().strftime('%Y-%m-%d')
     maxDate = addMonth(datetime.date.today(), 2).strftime('%Y-%m-%d')
-    return render_template('addTask.html', title='Задачи', minDate=minDate, maxDate=maxDate)
+    if id == None:
+        task = Bill()
+        readOnly = True
+    else:
+        task = Bill().query.filter_by(id=id).first()
+        readOnly = False
+    if not task:
+        abort(404)
+    return render_template('addTask.html', title='Задачи', minDate=minDate, maxDate=maxDate, task=task, readOnly=readOnly)

@@ -8,23 +8,46 @@
 {% block content %}
 
     <h1>Задача</h1>
-
+<div id="edit" style="display: {{ 'block' if readOnly else 'none' }};">
     <label for="title">Название</label>
-    <input id="title" name="title" type="text">
+    <input id="title" name="title" type="text" value="{{ task.title }}">
 
     <label for="description">Описание</label>
-    <textarea id="description" name="description" id="" cols="30" rows="5"></textarea>
+    <textarea id="description" name="description" id="" cols="30" rows="5">{{ task.description }}</textarea>
 
     <label for="sum">сумма</label>
-    <input id="sum" name="sum" type="text">
+    <input id="sum" name="sum" type="text" value="{{ task.sum }}">
 
     <label for="deadline">Срок до</label>
 
     <input type="date" id="deadline" name="deadline"
             value="{{ minDate }}"
             min="{{ minDate }}" max="{{ maxDate }}">
+    
+    <input type="text" id="city" name="city">
+
+    <input type="text" id="street" name="street">
+    
+    <input type="text" id="house" name="house">
 
     <button onclick="save()"> Сохранить </button>
+
+</div>
+<div id="read" style="display: {{ 'none' if readOnly else 'block' }};">
+    {{ task.title }}
+    {{ task.description }}
+    {{ task.sum }}
+    {{ task.city }}
+    {{ task.street }}
+    {{ task.house }}
+    {{ task.dedline }}
+    {{ task.date }}
+    {{ task.categoty }}
+    {{ task.status }}
+</div>
+
+<button onclick="edit()">edit</button>
+
 
 
 {% endblock %}

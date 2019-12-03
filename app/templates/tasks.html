@@ -5,17 +5,19 @@
     <h1>Tasks</h1>
 
     {% if current_user.activity != 'Студент' and current_user.is_authenticated %}
-        <a href="{{ url_for('add_task') }}">
+        <a href="{{ url_for('task_page') }}">
             <span style="font-size: 100px;">+</span>
         </a>
     {% endif %}
 
     {% for task in tasks %}
         <p>
-            {{ task.title }}
-            {{ task.description }}
-            {{ task.sum }}руб.
-            {{ task.data }}
+            <a href="/task-page/{{ task.id }}">
+                {{ task.title }}
+                {{ task.description }}
+                {{ task.sum }}руб.
+                {{ task.data }}
+            </a>
         </p>
     {% endfor %}
 

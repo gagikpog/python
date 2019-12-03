@@ -35,6 +35,7 @@ class User(db.Model, mixin, UserMixin):
     rating = db.Column(db.Integer)
     activity = db.Column(db.String(64))
     password = db.Column(db.String(255), nullable=False)
+    city = db.Column(db.String(32))
     # roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
     active = db.Column(db.Boolean())
@@ -57,6 +58,9 @@ class Bill(db.Model, mixin):
     category = db.Column(db.Integer)
     status = db.Column(db.String(32))
     views = db.Column(db.Integer)
+    city = db.Column(db.String(32))
+    street = db.Column(db.String(32))
+    house = db.Column(db.String(32))
 
     client = db.Column(db.Integer, db.ForeignKey('user.id'))
     # student = db.Column(db.Integer, db.ForeignKey('user.id'))

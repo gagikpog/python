@@ -1,4 +1,4 @@
-formFields = ['title', 'description', 'sum', 'deadline'];
+formFields = ['title', 'description', 'sum', 'deadline', 'city', 'street', 'house'];
 
 function save() {
     
@@ -37,4 +37,9 @@ function clearForm() {
     formFields.forEach((id) => {
         $(`#${id}`).val('');
     });
+}
+
+function edit() {
+    $('#edit').toggle();
+    $('#read').toggle();
 }
