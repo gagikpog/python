@@ -33,19 +33,23 @@
 
             <div class="block-first__content__right col-lg-9">
                 <div class="block-first__content__right__item">
-                    <input form="user-update__Input" type="submit" id="pen" value="">
+                    {% if  current_user.id == user.id %}
+                        <input form="user-update__Input" type="submit" id="pen" value="">
+                    {% endif %}
 
                     <div id="user-update__Name" class="block-first__content__right__item__user-Name">
                         <div id="snameResult">{{ user.sname }}</div> 
                         <div id="nameResult">{{ user.name }}</div> 
                         <div id="pnameResult">{{ user.pname }}</div>
                     </div>
-                    
+
+                    {% if  current_user.id == user.id %}
                     <form onsubmit="updateUser();return false" id="user-update__Input" class="block-first__content__right__item__user-Input">
                         <input required placeholder="Фамилия" id="sname" class="updateUser__input" type="text" value="{{ user.sname }}">
                         <input required placeholder="Имя" id="name" class="updateUser__input" type="text" value="{{ user.name }}">                        
                         <input required placeholder="Отчество" id="pname" class="updateUser__input" type="text" value="{{ user.pname }}">
                     </form>
+                    {% endif %}
 
                     <div class="block-first__content__right__item__one">
                         <div class="block-first__content__right__item__one__elems">
