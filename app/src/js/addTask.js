@@ -77,25 +77,33 @@ function publish(id, status) {
         }
         const taskName = document.querySelector('#readOnly-title').textContent.trim();
         const description = `Вы действительно хотите удалить задачу "${taskName}"`;
-        showConfirm('Сообщение', description).then((answer) => {
-            if (answer) {
-                $.ajax({
-                    url: '/api/bill',
-                    type: 'PUT',
-                    data: JSON.stringify(updateData),
-                    contentType: "application/json",
-                    success: function(data) {
-                        if (data.status === 'done') {
-                            if (id){
-                                updateForm(updateData);
-                            }
-                            if (status === 'Удалено') {
-                                window.location.href = '/tasks';
-                            }
+        if (status === 'Удалено') {
+            showConfirm('Сообщение', description).then((answer) => {
+                if (answer) {
+                    query();
+                }
+            });
+        } else {
+            query();
+        }
+        function query() {
+            $.ajax({
+                url: '/api/bill',
+                type: 'PUT',
+                data: JSON.stringify(updateData),
+                contentType: "application/json",
+                success: function(data) {
+                    if (data.status === 'done') {
+                        if (id){
+                            updateForm(updateData);
+                        }
+                        if (status === 'Удалено') {
+                            window.location.href = '/tasks';
                         }
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+
     }
 }

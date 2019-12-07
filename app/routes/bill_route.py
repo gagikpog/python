@@ -77,19 +77,18 @@ class Bill_api(Resource):
             abort(400)
             return ''
         json = request.json
-
-        if not id:
+        #Создаем новый объект
+        bill = Bill()
+        bill.init_of_dict(json)
+        if not bill.id:
             #Если id не был дан, то возвращаем ошибку
             res = {'status': 'error', 'message': 'Не найден обязательный параметр: id'}
             return jsonify(res)
         else:
-            if not int(id) in list(map(lambda item: int(item.id), current_user.bills)):
+            if not int(bill.id) in list(map(lambda item: int(item.id), current_user.bills)):
                 return jsonify({'status': 'error', 'message': 'У вас нет прав на изменение этой задачи!'})
             #Находим задачу и обновляем данные
-            if Bill.query.filter_by(id = id).first() != None:
-                #Создаем новый объект
-                bill = Bill()
-                bill.init_of_dict(json)
+            if Bill.query.filter_by(id = bill.id).first() != None:
                 Bill.query.filter_by(id = bill.id).update(bill.to_dict())
                 db.session.commit()
                 res = {'status': 'done', 'message': 'Данные обновлены'}
