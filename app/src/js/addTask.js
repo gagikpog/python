@@ -1,18 +1,27 @@
-formFields = ['title', 'description', 'sum', 'deadline', 'city', 'street', 'house'];
+formFields = ['title', 'description', 'sum', 'deadline', 'city', 'street', 'house', 'status'];
 
-function save() {
-    
-    let data = getFormData()
+function save(id) {
 
-    if (data.isValidate()) {
+    let updateData = getFormData()
+    const method = id ? 'PUT' : 'POST';
+
+    if (id) {
+        updateData.id = id;
+    }
+
+    if (updateData.isValidate()) {
         $.ajax({
             url: '/api/bill',
-            type: 'POST',
-            data: JSON.stringify(data),
+            type: method,
+            data: JSON.stringify(updateData),
             contentType: "application/json",
             success: function(data) {
                 if (data.status === 'done') {
-                    clearForm();
+                    if (!id) {
+                        clearForm();
+                    } else {
+                        updateForm(updateData);
+                    }
                 }
                 alert(data.message);
             }
@@ -39,7 +48,54 @@ function clearForm() {
     });
 }
 
-function edit() {
+function edit(id) {
     $('#edit').toggle();
     $('#read').toggle();
+}
+
+function updateForm(updateData) {
+    let keys = Object.keys(updateData);
+    keys.forEach((key) => {
+        item = document.querySelector(`#readOnly-${key}`);
+        if (item) {
+            item.textContent = updateData[key];
+        }
+    });
+
+    $('#hidebtn').css('display', updateData.status === 'Опубликовано' ? 'block' : 'none');
+    $('#publishbtn').css('display', updateData.status === 'Скрыто' ? 'block' : 'none');
+    $('#donebtn').css('display', updateData.status === 'Выполняется' ? 'block' : 'none');
+    $('#deletebtn').css('display', updateData.status === 'Выполняется' || updateData.status === 'Выполнено' ? 'none' : 'block');
+
+}
+
+function publish(id, status) {
+    if (id) {
+        const updateData = {
+            id,
+            status
+        }
+        const taskName = document.querySelector('#readOnly-title').textContent.trim();
+        const description = `Вы действительно хотите удалить задачу "${taskName}"`;
+        showConfirm('Сообщение', description).then((answer) => {
+            if (answer) {
+                $.ajax({
+                    url: '/api/bill',
+                    type: 'PUT',
+                    data: JSON.stringify(updateData),
+                    contentType: "application/json",
+                    success: function(data) {
+                        if (data.status === 'done') {
+                            if (id){
+                                updateForm(updateData);
+                            }
+                            if (status === 'Удалено') {
+                                window.location.href = '/tasks';
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
 }

@@ -16,3 +16,24 @@ function updateUsedData() {
 }
 
 updateUsedData();
+
+
+function showConfirm(message, description, buttons) {
+    return new Promise((res, rej) => {
+        showConfirm.done = (answer) => {
+            res(answer)
+            $('#confirm').hide();
+        }
+        $('#confirm').show();
+        if (!buttons) {
+            buttons = {
+                MBCANCEL: true,
+                MBOK: true
+            }
+        }
+        document.querySelector('#mbOk').style.display = buttons.MBOK ? 'inline-block' : 'none';
+        document.querySelector('#mbCancel').style.display = buttons.MBCANCEL ? 'inline-block' : 'none';
+        document.querySelector('#messageTitle').textContent = message;
+        document.querySelector('#messageDescription').textContent = description;
+    });
+}

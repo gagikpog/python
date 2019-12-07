@@ -20,7 +20,7 @@
   border-radius: 50px;
   position: absolute;
   background: rgba(0, 0, 0, 0);
-  z-index: 999999999999999999999999;
+  z-index: 100;
   -webkit-animation: rotation 2s infinite linear;
 }
 .decoration-ball:nth-child(1) {

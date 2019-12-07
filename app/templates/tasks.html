@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <style>
+        tr {
+            cursor: pointer;
+        }
+        tr:hover {
+            color: blueviolet;
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 
     <h1>Tasks</h1>
@@ -8,18 +20,31 @@
         <a href="{{ url_for('task_page') }}">
             <span style="font-size: 100px;">+</span>
         </a>
+        <a href="{{ url_for('tasksList')}}?user={{ current_user.id }}">
+            <span style="font-size: 100px;"> Мои </span>
+        </a>
     {% endif %}
 
-    {% for task in tasks %}
-        <p>
-            <a href="/task-page/{{ task.id }}">
-                {{ task.title }}
-                {{ task.description }}
-                {{ task.sum }}руб.
-                {{ task.data }}
-            </a>
-        </p>
-    {% endfor %}
+        <table>
+        {% for task in tasks %}
+
+            <tr data-href="/task-page/{{ task.id }}">
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.sum }}руб.</td>
+                <td>{{ task.data }}</td>
+                <td>{{ task.status }}</td>
+            </tr>
+
+        {% endfor %}
+        </table>
 
 
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('tr[data-href]').on("click", function() {
+            document.location = $(this).data('href');
+        });
+    </script>
 {% endblock %}

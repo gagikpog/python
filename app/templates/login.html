@@ -53,8 +53,14 @@
                                     {% endfor %}
                             </div>
 
-
-                            {{ registrForm.sname(size=32, placeholder='Фамилия') }}
+                            {{
+                                registrForm.sname(
+                                    size=32,
+                                    placeholder='Фамилия',
+                                    oninvalid='this.setCustomValidity("Введите вашу фамилию!")',
+                                    oninput='setCustomValidity("")'
+                                )
+                            }}
                             {% for error in registrForm.sname.errors %}
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}

@@ -13,43 +13,45 @@ def login():
     loginForm = LoginForm()
     registrForm = RegistrationForm()
     submit_mode = registrForm.submit.raw_data and registrForm.submit.raw_data[0]
+    if submit_mode == 'Войти':
+        if loginForm.validate_on_submit():
+            username = loginForm.username.data
+            if '@' in username:
+                user = User.query.filter_by(mail=username).first()
+            else:
+                user = User.query.filter_by(phone=username).first()
+            login_user(user)
+            flash('Login requested for user {}, remember_me={}'.format(
+                loginForm.username.data, loginForm.remember_me.data))
+            
+            next = request.args.get('next')
+            print(next)
+            return redirect(next or url_for('index'))
 
-    if submit_mode == 'Войти' and loginForm.validate_on_submit():
-        username = loginForm.username.data
-        if '@' in username:
-            user = User.query.filter_by(mail=username).first()
-        else:
-            user = User.query.filter_by(phone=username).first()
-        login_user(user)
-        flash('Login requested for user {}, remember_me={}'.format(
-            loginForm.username.data, loginForm.remember_me.data))
-        
-        next = request.args.get('next')
-        return redirect(next or url_for('index'))
+    elif submit_mode == 'Регистрация':
+        if registrForm.validate_on_submit():
+            userData = {
+                'name': registrForm.name.data,
+                'pname': registrForm.pname.data,
+                'sname': registrForm.sname.data,
+                'activity': registrForm.activity.data
+            }
+            uname = registrForm.username.data
+            user = None
+            if '@' in uname:
+                userData["mail"] = uname
+            else:
+                userData["phone"] = uname
 
-    if submit_mode == 'Регистрация' and registrForm.validate_on_submit():
-        userData = {
-            'name': registrForm.name.data,
-            'pname': registrForm.pname.data,
-            'sname': registrForm.sname.data,
-            'activity': registrForm.activity.data
-        }
-        uname = registrForm.username.data
-        user = None
-        if '@' in uname:
-            userData["mail"] = uname
-        else:
-            userData["phone"] = uname
+            user = User()
+            user.init_of_dict(userData)
 
-        user = User()
-        user.init_of_dict(userData)
-
-        user.set_password(registrForm.password.data)
-        db.session.add(user)
-        db.session.commit()
-        next = request.args.get('next')
-        login_user(user)
-        return redirect(next or url_for('index'))
+            user.set_password(registrForm.password.data)
+            db.session.add(user)
+            db.session.commit()
+            next = request.args.get('next')
+            login_user(user)
+            return redirect(next or url_for('index'))
 
     return render_template('login.html',  title='Вход', loginForm=loginForm, registrForm=registrForm)
 

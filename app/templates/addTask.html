@@ -8,45 +8,102 @@
 {% block content %}
 
     <h1>Задача</h1>
-<div id="edit" style="display: {{ 'block' if readOnly else 'none' }};">
-    <label for="title">Название</label>
-    <input id="title" name="title" type="text" value="{{ task.title }}">
-
-    <label for="description">Описание</label>
-    <textarea id="description" name="description" id="" cols="30" rows="5">{{ task.description }}</textarea>
-
-    <label for="sum">сумма</label>
-    <input id="sum" name="sum" type="text" value="{{ task.sum }}">
-
-    <label for="deadline">Срок до</label>
-
-    <input type="date" id="deadline" name="deadline"
-            value="{{ minDate }}"
-            min="{{ minDate }}" max="{{ maxDate }}">
     
-    <input type="text" id="city" name="city">
+    {% if not minimalPage %}
+    <a href="{{ url_for('tasksList')}}?user={{ current_user.id }}">
+        <span style="font-size: 100px;"> Мои </span>
+    </a>
+    <div id="edit" style="display: {{ 'block' if readOnly else 'none' }};">
+        <label for="title">Название</label>
+        <input id="title" name="title" type="text" value="{{ task.title }}">
 
-    <input type="text" id="street" name="street">
-    
-    <input type="text" id="house" name="house">
+        <label for="description">Описание</label>
+        <textarea id="description" name="description" id="" cols="30" rows="5">{{ task.description }}</textarea>
 
-    <button onclick="save()"> Сохранить </button>
+        <label for="sum">сумма</label>
+        <input id="sum" name="sum" type="text" value="{{ task.sum }}">
 
-</div>
-<div id="read" style="display: {{ 'none' if readOnly else 'block' }};">
-    {{ task.title }}
-    {{ task.description }}
-    {{ task.sum }}
-    {{ task.city }}
-    {{ task.street }}
-    {{ task.house }}
-    {{ task.dedline }}
-    {{ task.date }}
-    {{ task.categoty }}
-    {{ task.status }}
-</div>
+        <label for="deadline">Срок до</label>
 
-<button onclick="edit()">edit</button>
+        <input type="date" id="deadline" name="deadline"
+                value="{{ minDate }}"
+                min="{{ minDate }}" max="{{ maxDate }}">
+
+        <label for="city">Город</label>
+        <input type="text" id="city" name="city" value="{{ task.city }}">
+
+        <label for="street">Улица</label>
+        <input type="text" id="street" name="street" value="{{ task.street }}">
+
+        <label for="house">Дом</label>
+        <input type="text" id="house" name="house" value="{{ task.house }}">
+
+        <input style="display: none;" type="text" id="status" name="status" value="{{ task.status }}">
+
+        <button onclick="save({{ task.id }})"> Сохранить </button>
+
+    </div>
+    {% endif %}
+    <div id="read" style="display: {{ 'none' if readOnly else 'block' }};">
+        <span class="task-item" id="readOnly-title">
+            {{ task.title }}
+        </span>
+        <span class="task-item" id="readOnly-description">
+            {{ task.description }}
+        </span>
+        <span class="task-item" id="readOnly-sum">
+            {{ task.sum }}
+        </span>
+        <span class="task-item" id="readOnly-city">
+            {{ task.city }}
+        </span>
+        <span class="task-item" id="readOnly-street">
+            {{ task.street }}
+        </span>
+        <span class="task-item" id="readOnly-house">
+            {{ task.house }}
+        </span>
+        <span class="task-item" id="readOnly-dedline">
+            {{ task.dedline }}
+        </span>
+        <span class="task-item" id="readOnly-date">
+            {{ task.date }}
+        </span>
+        <span class="task-item" id="readOnly-categoty">
+            {{ task.categoty }}
+        </span>
+        <span class="task-item" id="readOnly-status">
+            {{ task.status }}
+        </span>
+
+        {% if not minimalPage %}
+        <button
+            style="display: {{ 'block' if task.status == 'Скрыто' else 'none' }};"
+            id="publishbtn"
+            onclick="publish({{ task.id }}, 'Опубликовано')"> Опубликовать </button>
+
+        <button
+            style="display: {{ 'block' if task.status == 'Опубликовано' else 'none' }};"
+            id="hidebtn"
+            onclick="publish({{ task.id }}, 'Скрыто')"> Скрыть </button>
+
+
+        <button
+            style="display: {{ 'block' if task.status == 'Выполняется' else 'none' }};"
+            id="donebtn"
+            onclick="publish({{ task.id }}, 'Выполнено')"> Выполнено </button>
+
+        <button
+            style="display: {{ 'block' if task.status != 'Выполняется' and task.status != 'Выполнено' else 'none' }};"
+            id="deletebtn"
+            onclick="publish({{ task.id }}, 'Удалено')"> Удалить </button>
+
+            {% endif %}
+    </div>
+
+    {% if not minimalPage and not readOnly%}
+        <button onclick="edit({{ task.id }})">Редактировать/Отмена</button>
+    {% endif %}
 
 
 

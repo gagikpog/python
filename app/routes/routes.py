@@ -48,7 +48,16 @@ def userPage(userID=None):
 #Страница с задачами
 @app.route('/tasks')
 def tasksList():
-    bills = Bill.query.all()
+    userId = request.args.get('user')
+    if not userId:
+        bills = Bill.query.filter_by(status='Опубликовано')
+    else:
+        user = User.query.filter_by(id=userId).first()
+        if (user):
+            bills = filter(lambda t: t.status != 'Удалено' ,user.bills)
+        else:
+            abort(404)
+
     #Рендрим и возвращаем страницу
     return render_template('tasks.html', tasks=bills, title='Площадка')
 
@@ -73,17 +82,34 @@ def me():
 @app.route('/task-page/')
 @app.route('/task-page')
 @login_required
-def task_page(id=None):
-    if current_user.activity == 'Студент':
-        abort(403)
+def task_page(id=0):
+    minimalPage = False
+    billsIds = list(map(lambda t: int(t.id), current_user.bills))
+    hasId = int(id) in billsIds
+    if current_user.activity == 'Студент' or not hasId and id != 0:
+        minimalPage = True
+    
     minDate = datetime.date.today().strftime('%Y-%m-%d')
     maxDate = addMonth(datetime.date.today(), 2).strftime('%Y-%m-%d')
-    if id == None:
+    if id == 0:
+        if minimalPage and current_user.activity == 'Студент':
+            abort(403)
         task = Bill()
+        emptyTaskData = {'id': 0, 'date': minDate, 'title': '', 'deadline': minDate, 'sum': 0, 'description': '', 'category': '', 'status': 'Скрыто', 'views': 0, 'city': '', 'street': '', 'house': '', }
+        task.init_of_dict(emptyTaskData)
         readOnly = True
     else:
         task = Bill().query.filter_by(id=id).first()
         readOnly = False
     if not task:
         abort(404)
-    return render_template('addTask.html', title='Задачи', minDate=minDate, maxDate=maxDate, task=task, readOnly=readOnly)
+    elif task.status == 'Удалено':
+        abort(404)
+
+    return render_template('addTask.html',
+        title='Задачи',
+        minDate=minDate,
+        maxDate=maxDate,
+        task=task,
+        readOnly=readOnly,
+        minimalPage=minimalPage)
