@@ -13,17 +13,27 @@ class User_api(Resource):
     def get(self, id=None):
         if id == None:
             #Если id не был дан, то возвращаем ошибку
-            res = {'status':'Не найден обязательный параметр: id'}
+            res = {'status':  'error', 'message':'Не найден обязательный параметр: id'}
             return jsonify(res)
         else:
             #Если дан id, то находим юзера с таким id
             obj = User.query.filter_by(id=id).first()
             if obj:
-                #Если юзер с таким id найден, то возвращаем
-                return jsonify(obj.to_dict())
+                # Нудно разграничить по провам
+                res = []
+                if int(current_user.id) != int(id):
+                    # скрываем часть данных такие как пароль и т.д.
+                    keys = ['name', 'sname', 'activity', 'born', 'id', 'mail', 'phone', 'pname', 'rating']
+                else:
+                    # чужой ползователь может получить только часть данных
+                    keys = ['name', 'sname', 'id']
+                user_data = current_user.to_dict()
+                for key in keys:
+                    res[key] = user_data[key]
+                return jsonify(res)
             else:
                 #Иначе, возвращаем ошибку
-                res = {'status': 'По вашему запросу ничего не найдено'}
+                res = {'status': 'error', 'message': 'По вашему запросу ничего не найдено'}
                 return jsonify(res)
 
     #Запрос на добавление нового юзера
@@ -42,9 +52,9 @@ class User_api(Resource):
             db.session.commit()
         except:
             #Если не получилось, то возвращаем ошибку
-            res = {'status': 'Такие данные уже существуют'}
+            res = {'status': 'error', 'message': 'Такие данные уже существуют'}
             return jsonify(res)
-        res = {'status':'Данные добавлены'}
+        res = {'status': 'done', 'message': 'Данные добавлены'}
         return jsonify(res)
 
     #Запрос на обновление данных юзера
@@ -59,40 +69,43 @@ class User_api(Resource):
         user.init_of_dict(json)
         if not user.id:
             #Если id не был дан, то возвращаем ошибку
-            res = {'status':'Не найден обязательный параметр: id'}
+            res = {'status': 'error', 'message': 'Не найден обязательный параметр: id'}
             return jsonify(res)
         else:
             #Находим юзера и обновляем данные
             if not int(user.id) == int(current_user.id):
-                res = {'status':"Попытка обновить чужие данные!"}
+                res = {'status': 'error', 'message': 'Попытка обновить чужие данные!'}
                 return jsonify(res)
             if User.query.filter_by(id = user.id).first() != None:
                 User.query.filter_by(id = user.id).update(user.to_dict())
                 db.session.commit()
-                res = {'status':'Данные обновлены'}
+                res = {'status': 'done', 'message': 'Данные обновлены'}
                 return jsonify(res)
             else:
                 #Если юзер не найден, то возвращаем ошибку
-                res = {'status': 'Данные с таким id не найдены'}
+                res = {'status': 'error', 'message': 'Данные с таким id не найдены'}
                 return jsonify(res)
 
     #Запрос на удаление юзера
     def delete(self, id=None):
         if id == None:
             #Если id не был дан, то возвращаем ошибку
-            res = {'status': 'Не найден обязательный параметр: id'}
+            res = {'status': 'error', 'message': 'Не найден обязательный параметр: id'}
             return jsonify(res)
+
+        if int(current_user.id) != int(id):
+            return jsonify({'status': 'error', 'message': 'У вас нет прав на удаление этого пользователя!'})
 
         query = User.query.filter_by(id = id)
         if query.first() != None:
             #Находим юзера и удаляем его
             query.delete()
             db.session.commit()
-            res = {'status': 'Вам смешно, а пацанчик то реально умер'}
+            res = {'status': 'error', 'message': 'Вам смешно, а пацанчик то реально умер'}
             return res
         else:
             #Если юзер не найден, то возвращаем ошибку
-            res = {'status': 'Данные с таким id не найдены'}
+            res = {'status': 'error', 'message': 'Данные с таким id не найдены'}
             return jsonify(res)
 
 

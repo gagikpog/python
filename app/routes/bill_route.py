@@ -5,7 +5,6 @@ from app.models import User, Bill
 from flask_restful import Resource, reqparse
 from flask_login import current_user
 
-
 class Bill_api(Resource):
     """
         RESTful API
@@ -15,6 +14,8 @@ class Bill_api(Resource):
     def get(self, id=None):
         #Если id не был дан, то возвращаем все задачи
         if id == None:
+            abort(404)
+            # в данный момент нет необходимости получения всех задач отсюда
             res = []
             for bi in Bill.query.all():
                 #Добавляем все задачи в list
@@ -24,7 +25,7 @@ class Bill_api(Resource):
         else:
             #Если дан id, то находим задачу с таким id
             obj = Bill.query.filter_by(id=id).first()
-            if obj:
+            if obj and obj.status != 'Удалено':
                 #Если задача с таким id найдена, то возвращаем
                 return jsonify(obj.to_dict())
             else: 
@@ -76,16 +77,19 @@ class Bill_api(Resource):
             abort(400)
             return ''
         json = request.json
-        #Создаем новый объект
-        bill = Bill()
-        bill.init_of_dict(json)
-        if not bill.id:
+
+        if not id:
             #Если id не был дан, то возвращаем ошибку
             res = {'status': 'error', 'message': 'Не найден обязательный параметр: id'}
             return jsonify(res)
         else:
+            if not int(id) in list(map(lambda item: int(item.id), current_user.bills)):
+                return jsonify({'status': 'error', 'message': 'У вас нет прав на изменение этой задачи!'})
             #Находим задачу и обновляем данные
-            if Bill.query.filter_by(id = bill.id).first() != None:
+            if Bill.query.filter_by(id = id).first() != None:
+                #Создаем новый объект
+                bill = Bill()
+                bill.init_of_dict(json)
                 Bill.query.filter_by(id = bill.id).update(bill.to_dict())
                 db.session.commit()
                 res = {'status': 'done', 'message': 'Данные обновлены'}
@@ -106,10 +110,13 @@ class Bill_api(Resource):
         query = Bill.query.filter_by(id = id)
         if query.first() != None:
             #Находим задачу и удаляем её
-            query.delete()
+            if not int(id) in list(map(lambda item: int(item.id), current_user.bills)):
+                return jsonify({'status': 'error', 'message': 'У вас нет прав на удаление этой задачи!'})
+            bill = query.first()
+            bill.status = 'Удалено'
             db.session.commit()
             res = {'status': 'done', 'message': 'Запись удалена!'}
-            return res
+            return jsonify(res)
         else:
             #Если задача не найдена, то возвращаем ошибку
             res = {'status': 'error', 'message': 'Данные с таким id не найдены'}
