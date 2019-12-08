@@ -25,6 +25,8 @@ login_manager.login_view = 'login'
 
 from app import models
 from app.routes import user_route, routes, bill_route, auth_route
+from app.routes import file_loader
+
 #администрирование- продумать позже
 ### ADMIN ###
 #from models import *

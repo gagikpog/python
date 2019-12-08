@@ -29,6 +29,7 @@ class User(db.Model, mixin, UserMixin):
     phone = db.Column(db.String(32), index=True, unique=True)
     mail = db.Column(db.String(120), index=True, unique=True)
     name = db.Column(db.String(64))
+    image = db.Column(db.String(128))
     sname = db.Column(db.String(64))
     pname = db.Column(db.String(64))
     born = db.Column(db.DateTime)

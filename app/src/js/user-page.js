@@ -62,3 +62,79 @@ function spoilerShow (number,countElem) {
 
 var spoilerShowZero = spoilerShow(0,5);
 var spoilerShowOne = spoilerShow(1,3);
+
+
+// для загрузки изображения
+function sse() {
+    var source = new EventSource('/stream');
+    source.onmessage = function(e) {
+        if (e.data == '')
+            return;
+        var data = $.parseJSON(e.data);
+
+        var src = data.src;
+        src = '/src/' + src.substring(src.indexOf('data/'));
+        $('#userImage').attr('src', src);
+        $('#userIcon_header').attr('src', src);
+
+        updateImage(src);
+        var progressbar = $('#progressbar');
+        progressbar.hide();
+    };
+}
+
+function file_select_handler(to_upload) {
+    var progressbar = $('#progressbar');
+    var xhr = new XMLHttpRequest();
+    xhr.upload.addEventListener('loadstart', function(e1){
+        progressbar.show();
+    });
+    xhr.open('POST', '/imageLoad', true);
+    xhr.send(to_upload);
+};
+
+function handle_hover(e) {
+    e.originalEvent.stopPropagation();
+    e.originalEvent.preventDefault();
+    e.target.className = (e.type == 'dragleave' || e.type == 'drop') ? '' : 'hover';
+}
+
+$('#drop').bind('drop', function(e) {
+    handle_hover(e);
+    if (e.originalEvent.dataTransfer.files.length < 1) {
+        return;
+    }
+    file_select_handler(e.originalEvent.dataTransfer.files[0]);
+}).bind('dragenter dragleave dragover', handle_hover);
+$('#file').change(function(e){
+    file_select_handler(e.target.files[0]);
+    e.target.value = '';
+});
+sse();
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-510348-17']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+
+function updateImage(imageName) {
+
+    var image = imageName.substring(imageName.indexOf('data/') + 4);
+    const text = JSON.stringify({id: currentUserData.id, image: image});
+    
+    $.ajax({
+        url: '/api/user/' + currentUserData.id,
+        type: 'PUT',
+        data: text,
+        contentType: "application/json",
+        success: function(data) {
+            const jsonData = JSON.stringify(data);
+        }
+    });
+}

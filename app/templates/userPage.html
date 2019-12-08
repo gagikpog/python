@@ -19,7 +19,7 @@
         <div class="block-first__content row">
             <div class="block-first__content__left col-lg-3">
                 <div class="block-first__content__left__avatar-block">
-                    <img class="block-first__content__left__avatar-block__photo" src="../src/img/user-page/avatar.svg" alt="">
+                    <img id="userImage" class="block-first__content__left__avatar-block__photo" src="{{ '/src/data' + user.image if user.image else '/src/img/user-page/avatar.svg' }}" alt="">
 
                     <div class="block-first__content__left__avatar-block__stars">
                         <img src="../src/img/user-page/star__full.svg" class="block-first__content__left__avatar-block__stars__star">
@@ -28,6 +28,13 @@
                     </div>
 
                     <p>Количество успешных заданий <strong>173</strong></p>
+                    <div style="display: flex;">
+                        <button style="width: 150px;" type="button" class="btn btn-success" onclick="$('#file')[0].click()" >Загрузить</button>
+                        <div class="spinner-border text-primary" role="status" id="progressbar" style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <input name="fileSelector" id="file" type="file"  style="display: none;"/>
+                    </div>
                 </div>
             </div>
 
@@ -188,12 +195,17 @@
             </div>
         </div>
     </div>
-</section>    
+</section>
 
-<script src="/src/js/user-page.js" ></script>
 {% endblock %}
 
+{% block scripts %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/vader/jquery-ui.css" />
+
+    <script src="/src/js/user-page.js" ></script>
 
 
-
-
+{% endblock %}
