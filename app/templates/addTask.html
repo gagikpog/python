@@ -75,13 +75,17 @@
         <span class="task-item" id="readOnly-status">
             {{ task.status }}
         </span>
+        {% if minimalPage %}
+        <button
+            id="to_respond"
+            onclick="toResponse({{ task.id }})">Откликаться</button>
+        {% endif %}
 
         {% if not minimalPage %}
         <button
             style="display: {{ 'block' if task.status == 'Скрыто' else 'none' }};"
             id="publishbtn"
             onclick="publish({{ task.id }}, 'Опубликовано')"> Опубликовать </button>
-
         <button
             style="display: {{ 'block' if task.status == 'Опубликовано' else 'none' }};"
             id="hidebtn"
@@ -98,7 +102,18 @@
             id="deletebtn"
             onclick="publish({{ task.id }}, 'Удалено')"> Удалить </button>
 
+            {% if task.status != 'Выполняется' and task.status != 'Выполнено' %}
+                <table>
+                    {% for user in users %}
+            
+                        <tr>
+                            <td><a href="/user/{{ user.id }}">{{ user.name }}</a>  <button onclick="accept({{ user.id }}, {{ task.id }})">Принять</button> </td>
+                        </tr>
+            
+                    {% endfor %}
+                </table>
             {% endif %}
+        {% endif %}
     </div>
 
     {% if not minimalPage and not readOnly%}

@@ -48,6 +48,7 @@ function clearForm() {
     });
 }
 
+
 function edit(id) {
     $('#edit').toggle();
     $('#read').toggle();
@@ -105,5 +106,56 @@ function publish(id, status) {
             });
         }
 
+    }
+}
+
+function toResponse(taskId){
+    if (taskId) {
+        const updateData = {
+            taskId
+        }
+
+        $.ajax({
+            url: '/task-response',
+            type: 'POST',
+            data: JSON.stringify(updateData),
+            contentType: "application/json",
+            success: function(data) {
+                if (data.status === 'done') {
+                    if (taskId){
+                        alert("sdad");
+                    }
+                } else {
+                    showConfirm('Ошибка', data.message, { MBOK: true});
+                }
+            }
+        });
+        
+    }
+}
+
+function accept(userId, taskId){
+    if (userId) {
+        const updateData = {
+            userId,
+            taskId
+        }
+
+        $.ajax({
+            url: '/task-accept',
+            type: 'POST',
+            data: JSON.stringify(updateData),
+            contentType: "application/json",
+            success: function(data) {
+                if (data.status === 'done') {
+                    if (userId){
+                        alert("sdad");
+                    }
+                } else {
+                    showConfirm('Ошибка', data.message, { MBOK: true});
+                }
+            }
+        });
+        
     }
 }

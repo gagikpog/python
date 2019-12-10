@@ -28,10 +28,12 @@ function showConfirm(message, description, buttons) {
         if (!buttons) {
             buttons = {
                 MBCANCEL: true,
-                MBOK: true
+                MBOK: true,
+                MBYES: false
             }
         }
         document.querySelector('#mbOk').style.display = buttons.MBOK ? 'inline-block' : 'none';
+        document.querySelector('#mbYes').style.display = buttons.MBYES ? 'inline-block' : 'none';
         document.querySelector('#mbCancel').style.display = buttons.MBCANCEL ? 'inline-block' : 'none';
         document.querySelector('#messageTitle').textContent = message;
         document.querySelector('#messageDescription').textContent = description;

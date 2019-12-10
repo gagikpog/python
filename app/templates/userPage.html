@@ -26,8 +26,9 @@
                         <img src="../src/img/user-page/star__full.svg" class="block-first__content__left__avatar-block__stars__star">
                         <img src="../src/img/user-page/star.svg" class="block-first__content__left__avatar-block__stars__star">
                     </div>
-
-                    <p>Количество успешных заданий <strong>173</strong></p>
+                    {% if user.done %}
+                    <p>Количество успешных заданий <strong>{{ user.done }}</strong></p>
+                    {% endif %}
                     <div style="display: flex;">
                         <button style="width: 150px;" type="button" class="btn btn-success" onclick="$('#file')[0].click()" >Загрузить</button>
                         <div class="spinner-border text-primary" role="status" id="progressbar" style="display: none;">

@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 #from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
-from app.models import User, Bill
+from app.models import User, Bill, Responses
 import datetime
 from app.utility.utility import addMonth
 
@@ -105,11 +105,68 @@ def task_page(id=0):
         abort(404)
     elif task.status == 'Удалено':
         abort(404)
+    responses = Responses.query.filter_by(bill_id = id).all()
+    resp = list(map(lambda resp: resp.user_id, responses))
+    users = []
+    for r in resp:
+        users.append(User.query.filter_by(id=r).first())
 
     return render_template('addTask.html',
         title='Задачи',
         minDate=minDate,
         maxDate=maxDate,
         task=task,
+        users=users,
         readOnly=readOnly,
         minimalPage=minimalPage)
+
+
+
+@app.route('/task-response', methods=['POST'])
+def task_response():
+    if current_user.activity != 'Студент' or not request.json :
+        abort(403)
+
+    task_id = request.json['taskId']
+    res = {'status': 'error', 'message': 'Вы уже откликнулись на эту задачу'}
+
+    if not Responses.query.filter_by(bill_id = task_id, user_id = current_user.id).first():
+        resp = Responses(bill_id=task_id, user_id=current_user.id)
+        res = {'status': 'done'}
+        try:
+            db.session.add(resp)
+            db.session.commit()
+        except:
+            res = {'status': 'error', 'message': 'Внутренная ошибка сервера, попробуйте попозже. ©Лунтик'}
+
+    return jsonify(res)
+
+@app.route('/task-accept', methods=['POST'])
+def task_accept():
+    if not request.json :
+        abort(403)
+
+    user_id = request.json['userId']
+    task_id = request.json['taskId']
+
+    if not int(task_id) in list(map(lambda item: int(item.id), current_user.bills)):
+        abort(403)
+
+    user = User.query.filter_by(id=user_id).first()
+    task = Bill.query.filter_by(id=task_id).first()
+    resp = Responses.query.filter_by(bill_id=task_id, user_id=user_id).first()
+    print(resp)
+    if user and task:
+        if task.status == 'Опубликовано':
+            resp.is_tied = True
+            task.status = 'Выполняется'
+            print(resp)
+
+            db.session.commit()
+            res = {'status': 'done', 'message': 'Исполнитель принят!'}
+        else:
+            res = {'status': 'error', 'message': 'Исполнитель уже принят!'}
+    else:
+        res = {'status': 'error', 'message': 'такого пользователя или задачи нет'}
+
+    return jsonify(res)

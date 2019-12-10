@@ -24,6 +24,15 @@ class mixin():
 #         db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
 #     )
 
+class Responses(db.Model, mixin):
+    id = db.Column(db.Integer, primary_key=True)
+    bill_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer)
+    is_tied = db.Column(db.Boolean())
+
+    def __repr__(self):
+        return '<Resp {}, {}>'.format(self.id, self.is_tied)
+
 class User(db.Model, mixin, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String(32), index=True, unique=True)
@@ -37,8 +46,10 @@ class User(db.Model, mixin, UserMixin):
     activity = db.Column(db.String(64))
     password = db.Column(db.String(255), nullable=False)
     city = db.Column(db.String(32))
+    done = db.Column(db.Integer)
     # roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     bills = db.relationship('Bill', backref='author', lazy='dynamic') #отношения с таблицей Bill
+    # responses = db.relationship('Responses', backref='executor', lazy='dynamic')
     active = db.Column(db.Boolean())
 
     def __repr__(self):
@@ -62,6 +73,9 @@ class Bill(db.Model, mixin):
     city = db.Column(db.String(32))
     street = db.Column(db.String(32))
     house = db.Column(db.String(32))
+    # response = db.Column(db.String(512))
+    # response = db.relationship('responses', backref='tasks', lazy='dynamic')
+
 
     client = db.Column(db.Integer, db.ForeignKey('user.id'))
     # student = db.Column(db.Integer, db.ForeignKey('user.id'))

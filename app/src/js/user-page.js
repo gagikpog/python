@@ -72,7 +72,7 @@ function sse() {
             return;
         var data = $.parseJSON(e.data);
 
-        var src = data.src;
+        var src = data.src.replace(/\\/g, '/');
         src = '/src/' + src.substring(src.indexOf('data/'));
         $('#userImage').attr('src', src);
         $('#userIcon_header').attr('src', src);
