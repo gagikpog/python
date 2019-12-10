@@ -102,17 +102,24 @@
             id="deletebtn"
             onclick="publish({{ task.id }}, 'Удалено')"> Удалить </button>
 
-            {% if task.status != 'Выполняется' and task.status != 'Выполнено' %}
+            
                 <table>
                     {% for user in users %}
-            
-                        <tr>
-                            <td><a href="/user/{{ user.id }}">{{ user.name }}</a>  <button onclick="accept({{ user.id }}, {{ task.id }})">Принять</button> </td>
-                        </tr>
-            
+                        {% if task.status != 'Выполняется' and task.status != 'Выполнено' %}
+                            <tr>
+                                <td><a href="/user/{{ user.id }}">{{ user.name }}</a>  <button onclick="accept({{ user.id }}, {{ task.id }})">Принять</button> </td>
+                            </tr>    
+                        {% else %}
+                            {% for resp in resps %}
+                                {% if resp.is_tied %}
+                                    <tr>
+                                        <td><a href="/user/{{ user.id }}">{{ user.name }}</a></td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     {% endfor %}
                 </table>
-            {% endif %}
         {% endif %}
     </div>
 

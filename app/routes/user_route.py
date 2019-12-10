@@ -73,11 +73,12 @@ class User_api(Resource):
             return jsonify(res)
         else:
             #Находим юзера и обновляем данные
-            if not int(user.id) == int(current_user.id):
+            if int(user.id) != int(current_user.id):
                 res = {'status': 'error', 'message': 'Попытка обновить чужие данные!'}
                 return jsonify(res)
-            if User.query.filter_by(id = user.id).first() != None:
-                User.query.filter_by(id = user.id).update(user.to_dict())
+            if User.query.filter_by(id=user.id).first():
+                print(user.id, id)
+                User.query.filter_by(id=user.id).update(user.to_dict())
                 db.session.commit()
                 res = {'status': 'done', 'message': 'Данные обновлены'}
                 return jsonify(res)

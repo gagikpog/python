@@ -53,8 +53,14 @@ def tasksList():
         bills = Bill.query.filter_by(status='Опубликовано')
     else:
         user = User.query.filter_by(id=userId).first()
-        if (user):
-            bills = filter(lambda t: t.status != 'Удалено' ,user.bills)
+        if user:
+            if user.activity == 'Студент':
+                resp = Responses.query.filter_by(user_id=user.id).all()
+                bills = []
+                for r in resp:
+                    bills.append(Bill.query.filter_by(id=r.bill_id).first())
+            else:
+                bills = filter(lambda t: t.status != 'Удалено', user.bills)
         else:
             abort(404)
 
@@ -110,6 +116,7 @@ def task_page(id=0):
     users = []
     for r in resp:
         users.append(User.query.filter_by(id=r).first())
+        # resps = resp if responses.is_tied else None
 
     return render_template('addTask.html',
         title='Задачи',
@@ -117,6 +124,7 @@ def task_page(id=0):
         maxDate=maxDate,
         task=task,
         users=users,
+        resps=responses,
         readOnly=readOnly,
         minimalPage=minimalPage)
 
