@@ -23,6 +23,8 @@ main {
 
 table {
   width: 100% !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /*Как выглядит таблица в заказах общих --- начало*/
 .table {
@@ -51,6 +53,11 @@ table {
 
   &__title {
     flex: 15%;
+    flex-shrink: 0;
+  }
+
+  &__img {
+    flex: 5%;
     flex-shrink: 0;
   }
 

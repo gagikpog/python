@@ -17,7 +17,7 @@
     {% for task in tasks %}
     <tr class="table" data-href="/task-page/{{ task.id }}">
       <td class="table__name">{{ task.author.name }}</td>
-      <td class="table__name">
+      <td class="table__img">
         <a href="/user/{{ task.author.id }}">
           <img id="avatarStudent" src="/src/data/{{ task.author.image }}"
         /></a>
