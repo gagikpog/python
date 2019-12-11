@@ -6,4 +6,4 @@ __pycache__
 *.db
 *.vs
 *.idea
-app/src/data/
+app/src/data/*.jpg

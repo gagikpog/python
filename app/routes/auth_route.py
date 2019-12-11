@@ -45,6 +45,7 @@ def login():
 
             user = User()
             user.init_of_dict(userData)
+            user.image = '/avatar.svg'
 
             user.set_password(registrForm.password.data)
             db.session.add(user)

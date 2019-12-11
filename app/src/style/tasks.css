@@ -19,7 +19,7 @@ table {
 }
 /*Как выглядит таблица в заказах общих --- начало*/
 .table {
-  cursor: pointer;
+  cursor: default;
   transition: 0.5s ease;
   margin: 10px 0;
   box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
@@ -45,15 +45,11 @@ table {
   flex-shrink: 0;
 }
 .table__description {
-  flex: 45%;
+  flex: 35%;
   flex-shrink: 0;
 }
 .table__sum {
   flex: 10%;
-  flex-shrink: 0;
-}
-.table__data {
-  flex: 5%;
   flex-shrink: 0;
 }
 .table__status {
@@ -254,4 +250,17 @@ table {
 .otclick-block button:hover {
   background: #292929;
   color: #fefefe;
+}
+#avatarStudent {
+  height: 50px;
+  width: 50px;
+  border-radius: 10000px;
+  background-color: #dbdbdb;
+}
+#avatarClient {
+  cursor: pointer !important;
+  height: 100px;
+  width: 100px;
+  border-radius: 10000px;
+  background-color: #dbdbdb;
 }

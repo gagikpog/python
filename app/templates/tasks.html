@@ -6,21 +6,26 @@
   {% if current_user.activity != 'Студент' and current_user.is_authenticated %}
   <a id="addOrder" href="{{ url_for('task_page') }}">
     Добавить заказ
-  </a> 
+  </a>
 
   {% endif %} {% if current_user.is_authenticated %}
   <a id="mainOrder" href="{{ url_for('tasksList')}}?user={{ current_user.id }}">
-    Мои заказы 
+    Мои заказы
   </a>
   {% endif %}
   <table>
     {% for task in tasks %}
     <tr class="table" data-href="/task-page/{{ task.id }}">
-      <td class="table__name">Имя{{ task.id }}</td>
+      <td class="table__name">{{ task.author.name }}</td>
+      <td class="table__name">
+        <a href="/user/{{ task.author.id }}">
+          <img id="avatarStudent" src="/src/data/{{ task.author.image }}"
+        /></a>
+      </td>
       <td class="table__title">{{ task.title }}</td>
       <td class="table__description">{{ task.description }}</td>
       <td class="table__sum">{{ task.sum }}руб.</td>
-      <td class="table__data">{{ task.data }}</td>
+      <!-- <td class="table__data">{{ task.data }}</td> -->
       <td class="table__status">{{ task.status }}</td>
     </tr>
 

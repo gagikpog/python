@@ -132,6 +132,9 @@
       <tr>
         <td>
           <p>Отклик:</p>
+          <a href="/user/{{ user.id }}"
+            ><img id="avatarStudent" src="/src/data/{{ user.image }}"
+          /></a>
           <a href="/user/{{ user.id }}">{{ user.name }}</a>
           <button onclick="accept({{ user.id }}, {{ task.id }})">
             Принять
