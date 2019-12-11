@@ -1,6 +1,109 @@
 {% extends "base.html" %}
-
+{% block head %}
+<link rel="stylesheet" href="/src/style/aboutUs.css" />
+{% endblock %}
 {% block content %}
-<h1>Мы Studer</h1>
+
+<body>
+<section class="block-autoris">
+    <div class="container">
+    <div class="block-autoris__content">
+        <div class="block-autoris__content__title">
+        <h1>studer</h1>
+        </div>
+    </div>
+    </div>
+</section>
+
+<section class="second-block">
+    <div class="container">
+    <div class="second-block__content">
+        <div id="img0" class="second-block__content__img0"></div>
+        <h2 id="title">О нас</h2>
+        <div id="img00" class="second-block__content__img0"></div>
+    </div>
+    </div>
+</section>
+
+<section class="third-block">
+    <div class="container">
+    <div class="third-block__content">
+        <div class="third-block__content__elements">
+        <div class="third-block__content__elements__img"></div>
+
+        <div>
+            <h3>Гагик Погосян</h3>
+
+            <p>
+            Team lead <br />
+            Координатор <br />
+            Построение архитектуры
+            </p>
+        </div>
+        </div>
+
+        <div class="third-block__content__elements">
+        <div class="third-block__content__elements__img"></div>
+
+        <div>
+            <h3>Ваге Погосян</h3>
+
+            <p>
+            Реализация функционала
+            </p>
+        </div>
+        </div>
+
+        <div class="third-block__content__elements">
+        <div class="third-block__content__elements__img"></div>
+
+        <div>
+            <h3>Юлия Кайгородцева</h3>
+
+            <p>
+            Реализация функционала
+            </p>
+        </div>
+        </div>
+
+        <div class="third-block__content__elements">
+        <div class="third-block__content__elements__img"></div>
+
+        <div>
+            <h3>Ударцев Сергей</h3>
+
+            <p>
+            Создание дизайна
+            </p>
+        </div>
+        </div>
+
+        <div class="third-block__content__elements">
+        <div class="third-block__content__elements__img"></div>
+
+        <div>
+            <h3>Осинцев Сергей</h3>
+
+            <p>
+            Автор идеи <br />
+            Frontend и его связка с Backend'ом
+            </p>
+        </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<div class="end"><a onclick="revert()" class="end__topBtn" href="#header">Вверх</a></div>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"
+></script>
+</body>
+<script src="/src/js/aboutUs.js"></script>
+<!-- <script src="bootstrap.min.js"></script>
+<script src="bootstrap.bundle.min.js"></script> -->
+</html>
 
 {% endblock %}

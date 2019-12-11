@@ -1,132 +1,154 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block head%}
+<link rel="stylesheet" href="/src/style/tasks.css" />
+<script src="/src/js/addTask.js"></script>
+{% endblock %} {% block content %}
 
-{% block head%}
-    <link rel="stylesheet" href="/src/style/tasks.css">
-    <script src="/src/js/addTask.js"></script>
-{% endblock %}
-
-{% block content %}
-
-    <h1>Задача</h1>
-    
+<div class="container">
+  <div class="titleBlock">
     {% if not minimalPage %}
-    <a href="{{ url_for('tasksList')}}?user={{ current_user.id }}">
-        <span style="font-size: 100px;"> Мои </span>
+    <a
+      id="backOrder"
+      href="{{ url_for('tasksList')}}?user={{ current_user.id }}"
+    >
+      К заданиям
     </a>
-    <div id="edit" style="display: {{ 'block' if readOnly else 'none' }};">
-        <label for="title">Название</label>
-        <input id="title" name="title" type="text" value="{{ task.title }}">
 
-        <label for="description">Описание</label>
-        <textarea id="description" name="description" id="" cols="30" rows="5">{{ task.description }}</textarea>
+    <h1>Информация о задаче</h1>
+  </div>
 
-        <label for="sum">сумма</label>
-        <input id="sum" name="sum" type="text" value="{{ task.sum }}">
+  <div id="edit">
+    <label for="title">Название</label>
+    <input id="title" name="title" type="text" value="{{ task.title }}" />
 
-        <label for="deadline">Срок до</label>
+    <label for="description">Описание</label>
+    <textarea id="description" name="description" id="" cols="30" rows="5">
+{{ task.description }}</textarea
+    >
 
-        <input type="date" id="deadline" name="deadline"
-                value="{{ minDate }}"
-                min="{{ minDate }}" max="{{ maxDate }}">
+    <label for="sum">Вознаграждение</label>
+    <input id="sum" name="sum" type="text" value="{{ task.sum }}" />
 
-        <label for="city">Город</label>
-        <input type="text" id="city" name="city" value="{{ task.city }}">
+    <label for="deadline">Срок до</label>
 
-        <label for="street">Улица</label>
-        <input type="text" id="street" name="street" value="{{ task.street }}">
+    <input
+      type="date"
+      id="deadline"
+      name="deadline"
+      value="{{ minDate }}"
+      min="{{ minDate }}"
+      max="{{ maxDate }}"
+    />
 
-        <label for="house">Дом</label>
-        <input type="text" id="house" name="house" value="{{ task.house }}">
+    <label for="city">Город</label>
+    <input type="text" id="city" name="city" value="{{ task.city }}" />
 
-        <input style="display: none;" type="text" id="status" name="status" value="{{ task.status }}">
+    <label for="street">Улица</label>
+    <input type="text" id="street" name="street" value="{{ task.street }}" />
 
-        <button onclick="save({{ task.id }})"> Сохранить </button>
+    <label for="house">Дом</label>
+    <input type="text" id="house" name="house" value="{{ task.house }}" />
 
-    </div>
+    <input
+      style="display: none;"
+      type="text"
+      id="status"
+      name="status"
+      value="{{ task.status }}"
+    />
+
+    <button onclick="save({{ task.id }})">Сохранить</button>
+  </div>
+  {% endif %}
+  <div id="read">
+    <span class="task-item" id="readOnly-title">
+      {{ task.title }}
+    </span>
+    <span class="task-item" id="readOnly-description">
+      {{ task.description }}
+    </span>
+    <span class="task-item" id="readOnly-sum">
+      {{ task.sum }}
+    </span>
+    <span class="task-item" id="readOnly-city">
+      {{ task.city }}
+    </span>
+    <span class="task-item" id="readOnly-street">
+      {{ task.street }}
+    </span>
+    <span class="task-item" id="readOnly-house">
+      {{ task.house }}
+    </span>
+    <span class="task-item" id="readOnly-dedline">
+      {{ task.dedline }}
+    </span>
+    <span class="task-item" id="readOnly-date">
+      {{ task.date }}
+    </span>
+    <span class="task-item" id="readOnly-categoty">
+      {{ task.categoty }}
+    </span>
+    <span class="task-item" id="readOnly-status">
+      {{ task.status }}
+    </span>
+    {% if minimalPage %}
+    <button id="to_respond" onclick="toResponse({{ task.id }})">
+      Откликнуться
+    </button>
+    {% endif %} {% if not minimalPage %}
+    <button
+      style="display: {{ 'block' if task.status == 'Скрыто' else 'none' }};"
+      id="publishbtn"
+      onclick="publish({{ task.id }}, 'Опубликовано')"
+    >
+      Скрыто
+    </button>
+    <button
+      style="display: {{ 'block' if task.status == 'Опубликовано' else 'none' }};"
+      id="hidebtn"
+      onclick="publish({{ task.id }}, 'Скрыто')"
+    >
+      Опубликовано
+    </button>
+
+    <button
+      style="display: {{ 'block' if task.status == 'Выполняется' else 'none' }};"
+      id="donebtn"
+      onclick="publish({{ task.id }}, 'Выполнено')"
+    >
+      Выполнено
+    </button>
+
+    <button
+      style="display: {{ 'block' if task.status != 'Выполняется' and task.status != 'Выполнено' else 'none' }};"
+      id="deletebtn"
+      onclick="publish({{ task.id }}, 'Удалено')"
+    >
+      Удалить
+    </button>
+
+    <table class="otclick-block">
+      {% for user in users %} {% if task.status != 'Выполняется' and task.status
+      != 'Выполнено' %}
+      <tr>
+        <td>
+          <p>Отклик:</p>
+          <a href="/user/{{ user.id }}">{{ user.name }}</a>
+          <button onclick="accept({{ user.id }}, {{ task.id }})">
+            Принять
+          </button>
+        </td>
+      </tr>
+      {% else %} {% for resp in resps %} {% if resp.is_tied %}
+      <tr>
+        <td><a href="/user/{{ user.id }}">{{ user.name }}</a></td>
+      </tr>
+      {% endif %} {% endfor %} {% endif %} {% endfor %}
+    </table>
+
+    {% endif %} {% if not minimalPage and not readOnly%}
+    <button onclick="edit({{ task.id }})">Редактировать/Отмена</button>
     {% endif %}
-    <div id="read" style="display: {{ 'none' if readOnly else 'block' }};">
-        <span class="task-item" id="readOnly-title">
-            {{ task.title }}
-        </span>
-        <span class="task-item" id="readOnly-description">
-            {{ task.description }}
-        </span>
-        <span class="task-item" id="readOnly-sum">
-            {{ task.sum }}
-        </span>
-        <span class="task-item" id="readOnly-city">
-            {{ task.city }}
-        </span>
-        <span class="task-item" id="readOnly-street">
-            {{ task.street }}
-        </span>
-        <span class="task-item" id="readOnly-house">
-            {{ task.house }}
-        </span>
-        <span class="task-item" id="readOnly-dedline">
-            {{ task.dedline }}
-        </span>
-        <span class="task-item" id="readOnly-date">
-            {{ task.date }}
-        </span>
-        <span class="task-item" id="readOnly-categoty">
-            {{ task.categoty }}
-        </span>
-        <span class="task-item" id="readOnly-status">
-            {{ task.status }}
-        </span>
-        {% if minimalPage %}
-        <button
-            id="to_respond"
-            onclick="toResponse({{ task.id }})">Откликаться</button>
-        {% endif %}
-
-        {% if not minimalPage %}
-        <button
-            style="display: {{ 'block' if task.status == 'Скрыто' else 'none' }};"
-            id="publishbtn"
-            onclick="publish({{ task.id }}, 'Опубликовано')"> Опубликовать </button>
-        <button
-            style="display: {{ 'block' if task.status == 'Опубликовано' else 'none' }};"
-            id="hidebtn"
-            onclick="publish({{ task.id }}, 'Скрыто')"> Скрыть </button>
-
-
-        <button
-            style="display: {{ 'block' if task.status == 'Выполняется' else 'none' }};"
-            id="donebtn"
-            onclick="publish({{ task.id }}, 'Выполнено')"> Выполнено </button>
-
-        <button
-            style="display: {{ 'block' if task.status != 'Выполняется' and task.status != 'Выполнено' else 'none' }};"
-            id="deletebtn"
-            onclick="publish({{ task.id }}, 'Удалено')"> Удалить </button>
-
-            
-                <table>
-                    {% for user in users %}
-                        {% if task.status != 'Выполняется' and task.status != 'Выполнено' %}
-                            <tr>
-                                <td><a href="/user/{{ user.id }}">{{ user.name }}</a>  <button onclick="accept({{ user.id }}, {{ task.id }})">Принять</button> </td>
-                            </tr>    
-                        {% else %}
-                            {% for resp in resps %}
-                                {% if resp.is_tied %}
-                                    <tr>
-                                        <td><a href="/user/{{ user.id }}">{{ user.name }}</a></td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                </table>
-        {% endif %}
-    </div>
-
-    {% if not minimalPage and not readOnly%}
-        <button onclick="edit({{ task.id }})">Редактировать/Отмена</button>
-    {% endif %}
-
-
+  </div>
+</div>
 
 {% endblock %}

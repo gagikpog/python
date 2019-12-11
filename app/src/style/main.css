@@ -15,10 +15,14 @@
   font-family: "Montserrat-bold";
   src: url("../fonts/Montserrat-bold.ttf");
 }
+html {
+  height: 100% !important;
+}
 body {
   padding: 0;
+  height: 100% !important;
   margin: 0;
-  font-family: Montserrat-Medium, sans-serif;
+  font-family: "Montserrat-Bold", sans-serif;
   background: url(../img/back_first.svg);
   background-size: contain;
   display: flex;
@@ -28,10 +32,12 @@ body > * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 h2 {
   letter-spacing: 5px;
-  font-family: Montserrat-bold;
+  font-family: "Montserrat-bold";
   font-weight: bolder;
   font-size: 50px;
   text-transform: uppercase;
@@ -44,7 +50,7 @@ h2 {
 /**/
 /**/
 header {
-  background: linear-gradient(352.23deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
+  background: linear-gradient(352.23deg, #9c27b0 16.01%, #673ab7 65.27%, #3f51b5 122.27%);
   width: 100%;
   margin: 0 auto;
   position: fixed;
@@ -53,34 +59,38 @@ header {
   z-index: 100;
   transition: 1s ease;
 }
+header > * {
+  font-weight: 600 !important;
+  font-family: "Montserrat-bold", sans-serif !important;
+}
 header .dropdown-menu {
-  background: linear-gradient(352.23deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
+  background: linear-gradient(352.23deg, #9c27b0 16.01%, #673ab7 65.27%, #3f51b5 122.27%);
   opacity: 0.9;
 }
 header .dropdown-menu .dropdown-item {
-  color: #FEFEFE;
+  color: #fefefe;
 }
 header .dropdown-menu .dropdown-item:hover {
   color: black !important;
 }
 @media (max-width: 991px) {
   header .navbar {
-    background-color: #0B2349;
+    background-color: #0b2349;
   }
 }
 @media (max-width: 991px) {
   header .navbar-toggler-icon {
-    color: #FEFEFE;
+    color: #fefefe;
   }
 }
 header .navbar-brand {
-  color: #FEFEFE !important;
+  color: #fefefe !important;
   font-size: 1.5em !important;
 }
 header a {
   font-size: 20px;
   text-transform: uppercase;
-  color: #FEFEFE;
+  color: #fefefe;
   transition: 0.5s ease;
   position: relative;
 }
@@ -158,16 +168,16 @@ footer {
   padding: 24px;
   font-size: 50px;
   height: 73px;
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
   text-align: center;
   letter-spacing: 3px;
   font-size: 15px;
-  color: #FEFEFE;
+  color: #fefefe;
+  flex-shrink: 0;
 }
 main {
   flex: 1;
 }
-
 .confirm {
   position: absolute;
   top: 0;
@@ -181,23 +191,20 @@ main {
   justify-content: center;
   align-items: center;
 }
-
 .confirm .body {
   background-color: white;
   min-width: 350px;
   min-height: 250px;
   display: flex;
   flex-direction: column;
-  border-radius: 10px
+  border-radius: 10px;
 }
-
 .description {
   flex: 2;
   text-align: center;
   padding: 12px;
   max-width: 400px;
 }
-
 .title {
   text-align: center;
 }
@@ -207,7 +214,6 @@ main {
   justify-content: space-around;
   padding: 20px;
 }
-
 .mbButton {
   width: 120px;
 }

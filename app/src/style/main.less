@@ -1,276 +1,299 @@
-@color-white: #FEFEFE;
-@color-black: #1A1A1A;
+@color-white: #fefefe;
+@color-black: #1a1a1a;
 
 .child(@second ; @bottom ; @right) {
-    -webkit-animation: left @second infinite ease-in-out;
-    -moz-animation: left @second infinite ease-in-out;
-    animation: left @second infinite ease-in-out;
-    bottom: @bottom;
-    right: @right;
+  -webkit-animation: left @second infinite ease-in-out;
+  -moz-animation: left @second infinite ease-in-out;
+  animation: left @second infinite ease-in-out;
+  bottom: @bottom;
+  right: @right;
 }
 .childTW(@second ; @bottom ; @right) {
-    -webkit-animation: right @second infinite ease-in-out;
-    -moz-animation: right @second infinite ease-in-out;
-    animation: right @second infinite ease-in-out;
-    bottom: @bottom;
-    right: @right;
+  -webkit-animation: right @second infinite ease-in-out;
+  -moz-animation: right @second infinite ease-in-out;
+  animation: right @second infinite ease-in-out;
+  bottom: @bottom;
+  right: @right;
 }
 
-.font-gradient(){
-    background: linear-gradient(295.4deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #0B2349;
-} 
+.font-gradient() {
+  background: linear-gradient(
+    295.4deg,
+    #9c27b0 16.01%,
+    #673ab7 65.27%,
+    #3f51b5 122.27%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0b2349;
+}
 
 .borderedSh() {
-    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    border: 2px solid #673AB7;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 2px solid #673ab7;
 }
 
 .bordered() {
-    border-radius: 10px;
-    border: 2px solid #673AB7;
+  border-radius: 10px;
+  border: 2px solid #673ab7;
 }
 
 .font-media(@size,@media) {
-    @media (max-width: @media) {
-        & {
-            font-size: @size;
-            text-align: center;
-            margin: 0 auto;
-            width: 100%;
-        }
-      }
+  @media (max-width: @media) {
+    & {
+      font-size: @size;
+      text-align: center;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
 }
-/*less*//*less*//*less*//*less*//*less*//*less*//*less*//*less*//*less*/
+/*less*/ /*less*/ /*less*/ /*less*/ /*less*/ /*less*/ /*less*/ /*less*/ /*less*/
 @font-face {
-font-family: "Montserrat-Medium"; 
-src: url("../fonts/Montserrat-Medium.ttf"); 
-} 
+  font-family: "Montserrat-Medium";
+  src: url("../fonts/Montserrat-Medium.ttf");
+}
 
 @font-face {
-font-family: "Montserrat-bold"; 
-src: url("../fonts/Montserrat-bold.ttf"); 
-} 
+  font-family: "Montserrat-bold";
+  src: url("../fonts/Montserrat-bold.ttf");
+}
+
+html {
+  height: 100% !important;
+}
 
 body {
-    padding: 0;
-    margin: 0;
-    font-family: Montserrat-Medium, sans-serif;
-    background: url(../img/back_first.svg);
-    background-size: contain; 
-    display: flex;
-    flex-direction: column;
+  padding: 0;
+  height: 100% !important;
+  margin: 0;
+  font-family: "Montserrat-Bold", sans-serif;
+  background: url(../img/back_first.svg);
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
 }
 
-body >* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body > * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 h2 {
-    letter-spacing: 5px;
-    font-family: Montserrat-bold;
-    font-weight: bolder;
-    font-size: 50px;
-    text-transform: uppercase;
-    text-align: center;
+  letter-spacing: 5px;
+  font-family: "Montserrat-bold";
+  font-weight: bolder;
+  font-size: 50px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .container {
-    margin: 0 auto;
-    width: 1260px;
+  margin: 0 auto;
+  width: 1260px;
 }
 /**/
 /**/
 header {
-    background: linear-gradient(352.23deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
-    transition: 1s ease;
-    width: 100%;
-    margin: 0 auto;
-    position: fixed;
-    opacity: .9;
-    height: 70px;
-    z-index: 100;
-    transition: 1s ease;
+  background: linear-gradient(
+    352.23deg,
+    #9c27b0 16.01%,
+    #673ab7 65.27%,
+    #3f51b5 122.27%
+  );
+  transition: 1s ease;
+  width: 100%;
+  margin: 0 auto;
+  position: fixed;
+  opacity: 0.9;
+  height: 70px;
+  z-index: 100;
+  transition: 1s ease;
 
+  & > * {
+    font-weight: 600 !important;
+    font-family: "Montserrat-bold", sans-serif !important;
+  }
 
-    .dropdown-menu {        
-        background: linear-gradient(352.23deg, #9C27B0 16.01%, #673AB7 65.27%, #3F51B5 122.27%);
-        opacity: .9;
-        & .dropdown-item {
-            color: @color-white;
+  .dropdown-menu {
+    background: linear-gradient(
+      352.23deg,
+      #9c27b0 16.01%,
+      #673ab7 65.27%,
+      #3f51b5 122.27%
+    );
+    opacity: 0.9;
+    & .dropdown-item {
+      color: @color-white;
 
-            &:hover {
-                color: black !important;
-            }
-        } 
+      &:hover {
+        color: black !important;
+      }
+    }
+  }
+
+  @media (max-width: 991px) {
+    & .navbar {
+      background-color: #0b2349;
+    }
+  }
+
+  @media (max-width: 991px) {
+    & .navbar-toggler-icon {
+      color: @color-white;
+    }
+  }
+
+  .navbar-brand {
+    color: @color-white !important;
+    font-size: 1.5em !important;
+  }
+
+  & a {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: @color-white;
+    transition: 0.5s ease;
+    position: relative;
+
+    &:hover {
+      text-decoration: none;
+      color: white;
+    }
+
+    &:after {
+      display: block;
+      position: absolute;
+      left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+      width: 0; /*задаём длинну линии до наведения курсора*/
+      height: 2px; /*задаём ширину линии*/
+      background-color: white; /*задаём цвет линии*/
+      content: "";
+      transition: width 0.3s ease-out; /*задаём время анимации*/
+    }
+
+    &:hover:after,
+    &:focus:after {
+      width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+    }
+  }
+
+  ul {
+    margin-left: 300px;
+
+    @media (max-width: 1160px) {
+      & {
+        margin-left: 150px;
+      }
     }
 
     @media (max-width: 991px) {
-        & .navbar{
-            background-color: #0B2349;
-        }
-        }
-
-    @media (max-width: 991px) {
-        & .navbar-toggler-icon{
-            color: @color-white;
-        }
-        }  
-
-    .navbar-brand{
-        color: @color-white !important;
-        font-size: 1.5em !important;
+      & {
+        margin-left: 0px;
+      }
     }
 
-    & a {  
-        font-size: 20px;
-        text-transform: uppercase;
-        color: @color-white;
-        transition: 0.5s ease;
-        position: relative;
+    li {
+      width: 150px;
+      margin: 0 45px;
 
+      @media (max-width: 991px) {
+        & {
+          margin: 10px;
+        }
+      }
 
-        &:hover {
-            text-decoration: none;
-            color: white;
+      & a {
+        & p {
+          padding: 0;
+          margin: 0;
+          display: inline-block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 215px;
         }
 
-        &:after {
-            display: block;
-            position: absolute;
-            left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
-            width: 0;/*задаём длинну линии до наведения курсора*/
-            height: 2px; /*задаём ширину линии*/
-            background-color: white; /*задаём цвет линии*/
-            content: "";
-            transition: width 0.3s ease-out; /*задаём время анимации*/
+        & img {
+          width: 35px;
+          height: 35px;
+          border-radius: 75px;
+          border: 1px solid white;
+          background: white;
+          margin-top: -15px;
         }
-        
-        &:hover:after,
-        &:focus:after {
-            width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
-        }
+      }
+
+      & .dropdown-toggle::after {
+        margin-left: 0;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        display: block;
+      }
     }
-
-    ul {
-        margin-left: 300px;
-
-        @media (max-width: 1160px) {
-            & {
-                margin-left: 150px;
-            }
-            }
-
-        @media (max-width: 991px) {
-            & {
-                margin-left: 0px;
-            }
-            }
-
-        li{
-            width: 150px;
-            margin: 0 45px;
-
-            @media (max-width: 991px) {
-                & {
-                    margin: 10px;
-                }
-            }
-
-            & a {
-                & p {
-                    padding: 0;
-                    margin: 0;
-                    display: inline-block;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    max-width: 215px;
-                }
-
-                & img {
-                    width: 35px;
-                    height: 35px;
-                    border-radius: 75px;
-                    border: 1px solid white;
-                    background: white;
-                    margin-top: -15px;
-                }
-            }
-
-            & .dropdown-toggle::after {
-                margin-left: 0;
-                border-top: none;
-                border-right: none;
-                border-left: none;
-                display: block;
-            }
-
-        }
-    }
-
+  }
 }
 
 footer {
-    box-sizing: border-box;
-    padding: 24px;
-    font-size: 50px;
-    height: 73px;
-    background-color: @color-black;
-    text-align: center;
-    letter-spacing: 3px;
-    font-size: 15px;
-    color: @color-white;
+  box-sizing: border-box;
+  padding: 24px;
+  font-size: 50px;
+  height: 73px;
+  background-color: @color-black;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 15px;
+  color: @color-white;
+  flex-shrink: 0;
 }
 
-
 main {
-    flex: 1;
+  flex: 1;
 }
 
 .confirm {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #7734b47a;
-    z-index: 361;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7734b47a;
+  z-index: 361;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-  
+
 .confirm .body {
-    background-color: white;
-    min-width: 350px;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px
+  background-color: white;
+  min-width: 350px;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
 }
-  
+
 .description {
-    flex: 2;
-    text-align: center;
-    padding: 12px;
-    max-width: 400px;
+  flex: 2;
+  text-align: center;
+  padding: 12px;
+  max-width: 400px;
 }
-  
+
 .title {
-    text-align: center;
+  text-align: center;
 }
 .messageBox-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 20px;
 }
 .mbButton {
-    width: 120px;
+  width: 120px;
 }

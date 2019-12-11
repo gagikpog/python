@@ -26,16 +26,19 @@
                         <img src="../src/img/user-page/star__full.svg" class="block-first__content__left__avatar-block__stars__star">
                         <img src="../src/img/user-page/star.svg" class="block-first__content__left__avatar-block__stars__star">
                     </div>
+
+                    {% if  current_user.id == user.id %}
+                        <div style="display: flex;">
+                            <button style="width: 100%;" type="button" class="btn btn-success" onclick="$('#file')[0].click()" >Загрузить фото</button>
+                            <div class="spinner-border text-primary" role="status" id="progressbar" style="display: none;">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <input name="fileSelector" id="file" type="file"  style="display: none;"/>
+                        </div>
+                    {% endif %} 
                     {% if user.done %}
                     <p>Количество успешных заданий <strong>{{ user.done }}</strong></p>
                     {% endif %}
-                    <div style="display: flex;">
-                        <button style="width: 150px;" type="button" class="btn btn-success" onclick="$('#file')[0].click()" >Загрузить</button>
-                        <div class="spinner-border text-primary" role="status" id="progressbar" style="display: none;">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <input name="fileSelector" id="file" type="file"  style="display: none;"/>
-                    </div>
                 </div>
             </div>
 

@@ -1,3 +1,257 @@
+* {
+  font-family: "Montserrat-bold", sans-serif;
+}
+.container {
+  max-width: 1260px;
+  margin: 0 auto;
+  position: relative;
+}
 main {
-    margin-top: 50px;
+  padding-top: 90px !important;
+}
+#edit {
+  display: flex !important;
+  background: #aaaaaa;
+  flex-direction: column;
+}
+table {
+  width: 100% !important;
+}
+/*Как выглядит таблица в заказах общих --- начало*/
+.table {
+  cursor: pointer;
+  transition: 0.5s ease;
+  margin: 10px 0;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px !important;
+  border: 2px solid #673ab7;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+}
+.table td {
+  padding: 0;
+  padding: 20px 10px;
+  height: 150px !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 500%;
+}
+.table__name {
+  flex: 10%;
+  flex-shrink: 0;
+}
+.table__title {
+  flex: 15%;
+  flex-shrink: 0;
+}
+.table__description {
+  flex: 45%;
+  flex-shrink: 0;
+}
+.table__sum {
+  flex: 10%;
+  flex-shrink: 0;
+}
+.table__data {
+  flex: 5%;
+  flex-shrink: 0;
+}
+.table__status {
+  flex: 15%;
+  flex-shrink: 0;
+}
+.table:hover {
+  background: rgba(255, 212, 249, 0.8);
+}
+/*Как выглядит таблица в заказах общих --- конец*/
+#addOrder {
+  height: 36px !important;
+  padding: 0 5px;
+  margin: 0 10px;
+  border: 2px solid #1a1a1a;
+  font-size: 20px;
+  color: #1a1a1a;
+  transition: 0.2s ease;
+}
+#addOrder:hover {
+  text-decoration: none;
+  color: #7a2dff;
+  border: 2px solid #7a2dff;
+}
+#addOrder:active {
+  color: white;
+  background: #7a2dff;
+}
+#mainOrder {
+  height: 36px !important;
+  padding: 0 5px;
+  margin: 0 10px;
+  border: 2px solid #1a1a1a;
+  font-size: 20px;
+  color: #1a1a1a;
+  transition: 0.2s ease;
+}
+#mainOrder:hover {
+  text-decoration: none;
+  color: #7a2dff;
+  border: 2px solid #7a2dff;
+}
+#mainOrder:active {
+  color: white;
+  background: #7a2dff;
+}
+#backOrder {
+  height: 36px !important;
+  padding: 0 5px;
+  margin: 0 10px;
+  border: 2px solid #1a1a1a;
+  font-size: 20px;
+  color: #1a1a1a;
+  transition: 0.2s ease;
+}
+#backOrder:hover {
+  text-decoration: none;
+  color: #7a2dff;
+  border: 2px solid #7a2dff;
+}
+#backOrder:active {
+  color: white;
+  background: #7a2dff;
+}
+.titleBlock {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 30px;
+}
+#edit {
+  background: rgba(0, 0, 0, 0);
+}
+#edit > * {
+  padding: 10px 0 8px 15px;
+  width: 100%;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  border: none;
+  border: 2px solid #7a2dff;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  font-size: 16px;
+  font-weight: 100;
+  transition: 0.5s ease;
+}
+#edit > *:nth-child(odd) {
+  border: none;
+  margin-top: 20px;
+}
+#edit > *:nth-child(even):last-child {
+  margin: 100px 0;
+}
+#edit > *:nth-child(even):last-child {
+  transition: 0.1;
+  color: #1a1a1a;
+}
+#edit > *:nth-child(even):last-child:hover {
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.2);
+}
+#edit > *:nth-child(even):last-child:active {
+  color: #fefefe;
+  background: #1a1a1a;
+}
+#edit > *:nth-child(even)::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  font-weight: 100;
+}
+#edit > *:nth-child(even):hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+#edit > *:nth-child(even):focus {
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #1a1a1a;
+}
+#edit > *:nth-child(even):active {
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #1a1a1a;
+}
+#read {
+  margin-bottom: 50px;
+  padding: 15px;
+  display: flex !important;
+  flex-direction: column !important;
+  border: 2px solid #7a2dff;
+  border-radius: 10px;
+  width: 100%;
+}
+#read > span {
+  border-bottom: 1px solid #7a2dff73;
+}
+#read > button {
+  padding: 10px 0 8px 15px;
+  width: 100%;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  border: none;
+  border: 2px solid #7a2dff;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  font-size: 16px;
+  font-weight: 100;
+  transition: 0.5s ease;
+  margin-top: 10px;
+}
+#read > button:hover {
+  background: #292929;
+  color: #fefefe;
+}
+.otclick-block {
+  margin: 10px 0;
+  padding: 10px;
+  min-height: 100px;
+  border-radius: 10px !important;
+}
+.otclick-block td {
+  border-bottom: 1px solid #7a2dff73;
+}
+.otclick-block p {
+  margin: 0;
+}
+.otclick-block a {
+  color: green;
+  transition: 0.4s ease;
+}
+.otclick-block a:hover {
+  text-decoration: none;
+  color: #004d00;
+}
+.otclick-block td {
+  margin: 10px 0;
+}
+.otclick-block button {
+  padding: 0 15px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 1000px;
+  border: none;
+  border: 2px solid #7a2dff;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  font-size: 16px;
+  font-weight: 100;
+  transition: 0.5s ease;
+  margin-top: 10px;
+}
+.otclick-block button:hover {
+  background: #292929;
+  color: #fefefe;
 }
