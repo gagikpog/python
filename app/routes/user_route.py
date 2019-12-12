@@ -20,7 +20,7 @@ class User_api(Resource):
             obj = User.query.filter_by(id=id).first()
             if obj:
                 # Нудно разграничить по провам
-                res = []
+                res = {}
                 if int(current_user.id) != int(id):
                     # скрываем часть данных такие как пароль и т.д.
                     keys = ['name', 'sname', 'activity', 'born', 'id', 'mail', 'phone', 'pname', 'rating']
@@ -28,6 +28,7 @@ class User_api(Resource):
                     # чужой ползователь может получить только часть данных
                     keys = ['name', 'sname', 'id']
                 user_data = current_user.to_dict()
+                # res = {"name":"", "sname":"", }
                 for key in keys:
                     res[key] = user_data[key]
                 return jsonify(res)

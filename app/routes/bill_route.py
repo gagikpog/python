@@ -12,16 +12,15 @@ class Bill_api(Resource):
     
     #Запрос на получение задач
     def get(self, id=None):
-        #Если id не был дан, то возвращаем все задачи
         if id == None:
             abort(404)
-            # в данный момент нет необходимости получения всех задач отсюда
-            res = []
-            for bi in Bill.query.all():
-                #Добавляем все задачи в list
-                res.append(bi.to_dict())
-            #Возвращаем json с задачами
-            return jsonify(res)
+            # # в данный момент нет необходимости получения всех задач отсюда
+            # res = []
+            # for bi in Bill.query.all():
+            #     #Добавляем все задачи в list
+            #     res.append(bi.to_dict())
+            # #Возвращаем json с задачами
+            # return jsonify(res)
         else:
             #Если дан id, то находим задачу с таким id
             obj = Bill.query.filter_by(id=id).first()
